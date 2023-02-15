@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="globalStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    <title>Kidney health app home page</title>
+</head>
+<body>
+    <div class=".calcArea">
+        <div class="nav">
+            <a href="#">New Calculation</a>
+            <a href="#">Report</a>
+        </div>
+        <div class="chartStyle" style="width:50%" >
+            <canvas id="line-chart"></canvas>
+        </div>
+    </div>
+    <div class="main-section">
+        <button onclick="updateChart()">Update chart</button>
+        <button class="big-button">Past Results</button>
+        <button class="big-button">Report</button>
+    </div>
+
+    <script>
+    function updateChart() {
+        fetch('main.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({key: 2 }) // Key==patientID ??
+        })
+            .then(response => response.json())
+            .then(data => {
+                var patientEFGRData = data;
+                console.log(data);
+                console.log(patientEFGRData);
+                myLineChart.update(data);
+            })
+        var ctx = document.getElementById('line-chart').getContext('2d');
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Data Set 1',
+                    data: [12, 19, 3, 5, 2],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        })}
+    </script>
+</body>
+</html>
