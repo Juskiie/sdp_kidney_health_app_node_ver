@@ -14,20 +14,19 @@
     <title>Kidney health app home page</title>
 </head>
 <body>
-    <div class=".calcArea">
-        <div class="nav">
-            <a href="#">New Calculation</a>
-            <a href="#">Report</a>
-        </div>
-        <div class="chartStyle" style="width:50%" >
-            <canvas id="line-chart"></canvas>
-        </div>
-    </div>
-    <div class="main-section">
-        <button onclick="updateChart()">Update chart</button>
-        <button class="big-button">Past Results</button>
-        <button class="big-button">Report</button>
-    </div>
+<nav>
+    <ul>
+        <li><button >Dashboard</button></li>
+        <li><bitton href="#">New Calculation</bitton></li>
+        <li><button onclick="updateChart()">Past Results</button></li>
+        <li><button href="#">Clinician Feedback</button></li>
+        <li style="float:right"><a href="#">Logout</a></li>
+    </ul>
+</nav>
+<div class="chartStyle" style="width:50%" >    <canvas id="line-chart"></canvas></div>
+<script>
+    document.write("<h1>Welcome to KodeGreen's Kidney Health Tracker</h1>");
+</script>
 
     <script>
     function updateChart() {
