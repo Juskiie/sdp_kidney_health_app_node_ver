@@ -56,6 +56,8 @@ app.post('/update', (req, res) => {
 
     pool.query(updateResultsData, [testResultsJSON,id], (error, results, fields) => {
         if (error) throw error;
+        console.log(results);
+        console.log(fields);
 
         pool.query(getResultsData, [id], (error, results, fields) =>{
             if (error) throw error;
@@ -63,6 +65,7 @@ app.post('/update', (req, res) => {
             console.log(results[0]);
             console.log(results[0].test_results);
             console.log(JSON.parse(results[0].test_results));
+            console.log(fields);
 
             let testResults = {};
 
