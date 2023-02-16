@@ -5,41 +5,6 @@ const port = 3000; // choose any port number you like
 
 app.use(express.static(__dirname));
 
-
-// Handle POST requests to chart.js lib
-app.post('/api/data', (req, res) => {
-    // Retrieve the data from the backend
-    const data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-            {
-                label: 'My First Dataset',
-                data: [65, 59, 80, 81, 56, 55, 40],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }
-        ]
-    };
-    res.json(data);
-});
-
-// const scripts = require('./scripts/line-chart.js');
-
-// scripts.updateChartFunc();
-
-// Start listening on port...
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
-
-// Link to html -- load main page
-app.get('/', (req, res) => {
-    res.sendFile('index.html');
-});
-
-
-
 const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 10,
@@ -49,12 +14,74 @@ const pool = mysql.createPool({
     database: 'maindb'
 });
 
+// Link to html -- load main page
+app.get('/', (req, res) => {
+    res.sendFile('index.html');
+});
+
+// SQL QUERIES
+
+app.use(express.json());
+
+// Update the users table
 const updateUsersTable = `
     UPDATE users
     SET email = ?, password = ?
     WHERE id = ?;
 `
 const valuesForUsers = ['email@host.com','example_pwrd',1];
+
+const updateResultsData = `
+    UPDATE patients 
+    SET test_results = ? 
+    WHERE id = ?
+`
+
+const getResultsData = `
+    SELECT test_results
+    FROM patients 
+    WHERE id = ?
+`
+
+// Handle request to update results data
+// Handle POST requests to receive test results
+app.post('/update', (req, res) => {
+    // Retrieve the data from the backend
+    // let data=req.body;
+    let id=req.body.ID;
+    let testResults = req.body.data;
+
+    // Convert to JSON string
+    let testResultsJSON = JSON.stringify(testResults);
+
+    pool.query(updateResultsData, [testResultsJSON,id], (error, results, fields) => {
+        if (error) throw error;
+
+        pool.query(getResultsData, [id], (error, results, fields) =>{
+            if (error) throw error;
+            console.log(results);
+            console.log(results[0]);
+            console.log(results[0].test_results);
+            console.log(JSON.parse(results[0].test_results));
+
+            let testResults = {};
+
+
+
+            //let testResults = {"2023-01-01":80};
+            /*if (results[0].test_results) {
+                let testResultsArray = JSON.parse(results[0].test_results);
+                testResultsArray.forEach(function (value, index) {
+                    console.log(`${index}: ${value}`);
+                });
+            }*/
+            // Send the updated test result data as a JSON response
+            res.join(testResults);
+        });
+    });
+});
+
+
 
 pool.query(updateUsersTable, valuesForUsers, (error, results) => {
     if (error) throw error;
@@ -65,4 +92,9 @@ pool.getConnection((err, connection) => {
     if (err) throw err;
     console.log('Connected to MySQL server!');
     connection.release();
+});
+
+// Start listening on port...
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
