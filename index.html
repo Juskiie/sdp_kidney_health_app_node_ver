@@ -1,9 +1,11 @@
+<!-- eslint-disable import/no-unresolved -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Kidney health app home page</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="globalStyle.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/globalStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> // chart.js
     <style>
         canvas {
             -moz-user-select: none;
@@ -11,7 +13,7 @@
             -ms-user-select: none;
         }
     </style>
-    <title>Kidney health app home page</title>
+
 </head>
 <body>
 <script>
@@ -19,53 +21,51 @@
 </script>
 <nav>
     <ul>
-        <li><button >Dashboard</button></li>
-        <li><bitton href="#">New Calculation</bitton></li>
-        <li><button onclick="updateChart()">Past Results</button></li>
-        <li><button href="#">Clinician Feedback</button></li>
+        <li><button>Dashboard</button></li>
+        <li><button>New Calculation</button></li>
+        <li><button id="update-chart-button">Past Results</button></li>
+        <li><button>Clinician Feedback</button></li>
         <li style="float:right"><a href="#">Logout</a></li>
     </ul>
-</nav>
-<div class="chartStyle" style="width:50%" >    <canvas id="line-chart"></canvas></div>
-
-
     <script>
-    function updateChart() {
-        fetch('main.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({key: 2 }) // Key==patientID ??
-        })
-            .then(response => response.json())
-            .then(data => {
-                var patientEFGRData = data;
-                console.log(data);
-                console.log(patientEFGRData);
-                myLineChart.update(data);
-            })
-        var ctx = document.getElementById('line-chart').getContext('2d');
-        var myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Data Set 1',
-                    data: [12, 19, 3, 5, 2],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        })}
+	    const updateChartButton = document.getElementById('update-chart-button');
+
+	    // Add a click event listener to the button
+	    updateChartButton.addEventListener('click', function()
+        {
+	        const data = {
+		        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+		        datasets: [
+			        {
+				        label: 'My First Dataset',
+				        data: [65, 59, 80, 81, 56, 55, 40],
+				        fill: false,
+				        borderColor: 'rgb(75, 192, 192)',
+				        tension: 0.1
+			        }
+		        ]
+	        };
+	        const ctx = document.getElementById('line-chart').getContext('2d'); // use correct id "line-chart"
+	        const options = {
+		        scales: {
+			        yAxes: [{
+				        ticks: {
+					        beginAtZero: true
+				        }
+			        }]
+		        }
+	        }; // your options object
+	        chart = new Chart(ctx, {
+		        type: 'line',
+		        data: data,
+		        options: options
+	        });
+	    });
     </script>
+</nav>
+<div class="chartStyle" style="width:50%">
+    <canvas id="line-chart"></canvas>
+</div>
 </body>
 </html>
+
