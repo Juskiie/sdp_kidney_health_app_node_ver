@@ -1,5 +1,6 @@
 // Express setup
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3000; // choose any port number you like
 
@@ -20,7 +21,6 @@ app.get('/', (req, res) => {
 });
 
 // SQL QUERIES
-
 app.use(express.json());
 
 // Update the users table
@@ -32,9 +32,9 @@ const updateUsersTable = `
 const valuesForUsers = ['email@host.com','example_pwrd',1];
 
 const updateResultsData = `
-    UPDATE patients 
-    SET test_results = ? 
-    WHERE id = ?
+UPDATE patients 
+SET test_results = ? 
+WHERE id = ?
 `
 
 const getResultsData = `
@@ -50,41 +50,28 @@ app.post('/update', (req, res) => {
     // let data=req.body;
     let id=req.body.ID;
     let testResults = req.body.data;
+    const testResultsJson = JSON.stringify(testResults);
 
-    // Convert to JSON string
-    let testResultsJSON = JSON.stringify(testResults);
+    pool.query(updateResultsData, [testResultsJson,id], (error, updateResults, fields) => {
+        if (error){
+            console.error(error);
+            res.sendStatus(500);
+        }
 
-    pool.query(updateResultsData, [testResultsJSON,id], (error, results, fields) => {
-        if (error) throw error;
-        console.log(results);
-        console.log(fields);
-
-        pool.query(getResultsData, [id], (error, results, fields) =>{
-            if (error) throw error;
-            console.log(results);
-            console.log(results[0]);
-            console.log(results[0].test_results);
-            console.log(JSON.parse(results[0].test_results));
-            console.log(fields);
-
-            let testResults = {};
-
-
-
-            //let testResults = {"2023-01-01":80};
-            /*if (results[0].test_results) {
-                let testResultsArray = JSON.parse(results[0].test_results);
-                testResultsArray.forEach(function (value, index) {
-                    console.log(`${index}: ${value}`);
-                });
-            }*/
-            // Send the updated test result data as a JSON response
-            res.join(testResults);
+        pool.query(getResultsData, [id], (error, getResults, fields) =>{
+            if (error) {
+                console.error(error);
+                res.sendStatus(500);
+            }
+            const testResultsFromDb = JSON.parse(getResults[0].test_results);
+            const result = Object.entries(testResultsFromDb).map(([date, value]) => ({ date, value }));
+            res.json(result);
         });
     });
 });
 
-
+//  const resultEntries =  Object.entries(results);
+//  const result = resultEntries.map(([key, value]) => ({key, value}));
 
 pool.query(updateUsersTable, valuesForUsers, (error, results) => {
     if (error) throw error;

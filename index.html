@@ -21,7 +21,7 @@
 </script>
 <nav>
     <ul>
-        <li><button>Dashboard</button></li>
+        <li><button id="dashboard">Dashboard</button></li>
         <li><button>New Calculation</button></li>
         <li><button id="update-chart-button">Past Results</button></li>
         <li><button>Clinician Feedback</button></li>
@@ -62,35 +62,38 @@
 	        });
 	    });
     </script>
-    <script>
-        let patientID=1;
-		let results= {
-			"2023-01-01": 80,
-			"2023-01-02": 90,
-			"2023-01-03": 119
-        };
+    <script id="get-and-update-chart">
+	    const dashBoardButton = document.getElementById('dashboard');
+		dashBoardButton.addEventListener('click', function() {
+			let patientID=1;    // Change these values to values from patientID
+			let results= {  // Change these values to values from the form
+				"2023-01-01": 1,
+				"2023-01-02": 2,
+				"2023-01-03": 3
+			};
 
-        let data = {
-			ID:patientID,
-            data:results
-        }; // This should contain, the user's info, and their results
+			let data = {
+				ID:patientID,
+				data:results
+			}; // This should contain, the user's info, and their results
 
-        fetch('/update', {
-			method: 'POST',
-            headers: {
-				'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(data => {
-				// handle the response data here
-                console.log(data);
-            })
-            .catch(error => {
-				// handle errors here
-                console.error(error);
-            })
+			fetch('/update', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+				.then(res => res.json())
+				.then(data => {
+					// handle the response data here
+					console.log(data);
+				})
+				.catch(error => {
+					// handle errors here
+					console.error(error);
+				})
+        });
     </script>
 </nav>
 <div class="chartStyle" style="width:50%">
