@@ -4,7 +4,7 @@
 <head>
     <title>Kidney health app home page</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="styles/globalStyle.css">
+    <link rel="stylesheet" type="text/css" href="styles/new.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> // chart.js
     <style>
         canvas {
@@ -27,6 +27,34 @@
         <li><button>Clinician Feedback</button></li>
         <li style="float:right"><a href="#">Logout</a></li>
     </ul>
+    <div class="box">
+        <h2>Calculate your eFGR levels</h2>
+        <form>
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <label for="age">Age</label>
+            <input type="text" id="age" name="age">
+            <label for="ethnicity">Ethnicity</label>
+            <select id="ethnicity" name="ethnicity">
+                <option value="asian">Asian</option>
+                <option value="black">Black or African American</option>
+                <option value="hispanic">Hispanic or Latino</option>
+                <option value="native">Native American or Alaska Native</option>
+                <option value="white">White or Caucasian</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="right-box">
+        <h2>Your eFGR results are:</h2>
+        <div class="result">-</div>
+        <p>We suggest you contact your GP.</p>
+        <p>Keep a note of your results for your appointment.</p>
+        <p>For more information visit www.com</p>
+    </div>
     <script>
 	    const updateChartButton = document.getElementById('update-chart-button');
 

@@ -1,0 +1,83 @@
+html, body {
+    height: 100%;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    display: flex;
+}
+
+nav li {
+    float: left;
+    display: inline-block;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #111;
+}
+
+/* add new style for the box */
+.box {
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: calc(39% - 30px);
+    margin: 40px;
+    border-radius: 10px;
+    float: left;
+    text-align: left;
+    height: 70%;
+}
+
+
+/* add style for form elements */
+form label {
+    display: block;
+    margin-top: 10px;
+}
+
+form input[type="text"], form select {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* add style for submit button */
+form button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* add style for the right box */
+.right-box {
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: calc(48% - 30px);
+    margin: 40px;
+    border-radius: 10px;
+    float: right;
+    text-align: left;
+    height: 30%;
+}
+
+.result {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
