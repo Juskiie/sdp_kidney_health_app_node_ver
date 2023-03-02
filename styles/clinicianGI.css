@@ -5,8 +5,8 @@ head {
 }
 
 h1 {
-    text-align: center;
-    background-color: #13005A;
+    text-align: center; /* move heading to the middle */
+    background-color: #13005A; /* add background color */
     padding: 20px;
     color:#FFFFFF;
 }
@@ -31,6 +31,7 @@ button:hover {
     color: #13005A;
 }
 
+
 /* Set the color and style of the menu bar */
 ul {
     list-style-type: none;
@@ -39,11 +40,9 @@ ul {
     overflow: hidden;
     background-color: #13005A;
 }
-
 li {
     float: left;
 }
-
 li a {
     display: block;
     color: white;
@@ -55,68 +54,57 @@ li a:hover {
     background-color: #301934;
 }
 
-.calculate {
-    background-color: #097969;
+.box {
+    background-color: transparent;
     padding: 20px;
-    width: calc(39% - 30px);
-    margin: 40px;
+    width: calc(20% - 30px);
+    margin: auto; /* set margin to auto to center horizontally */
     border-radius: 10px;
-    float: left;
+    float: none; /* remove float */
+    text-align: left;
+    height: 70%;
+    color: #097969;
+}
+h2 {
+    color: #097969;
+}
+.about-box {
+    background-color: #00337C;
+    padding: 20px;
+    width: calc(80% - 30px);
+    margin: auto;
+    border-radius: 10px;
+    float: none;
+    text-align: left;
+    height: 70%;
+    color: black;
+    opacity: 0.90;
+    margin-bottom: 20px;
+}
+.info-box {
+    background-color: #097969;
+    opacity: 0.90;
+    padding: 20px;
+    width: calc(80% - 30px);
+    margin: auto;
+    border-radius: 10px;
+    float: none;
     text-align: left;
     height: 70%;
     color: #FFFFFF;
+    margin-bottom: 20px;
 }
 
-#sex,
-#age,
-#ethnicity {
-    background-color: FFFFFF;
-    border: 1px solid #FFFFFF;
-    border-radius: 4px;
-    padding: 5px;
-    margin-bottom: 10px;
-    width: 100%;
-    color: #097969;
-}
-
-form label {
-    display: block;
-    margin-top: 10px;
-}
-
-form input[type="text"], form select {
-    padding: 5px;
-    margin-bottom: 10px;
-    width: 100%;
-    color: #FFFFFF;
-}
-
-
-form button[type="submit"] {
-    background-color: #13005A;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;
-    display: block;
-    margin: auto;
-}
-
-.results {
-    background-color: #f2f2f2;
+.more-info-box {
+    background-color: #097969;
+    opacity: 0.90;
     padding: 20px;
-    width: calc(48% - 30px);
-    margin: 40px;
+    width: calc(80% - 30px);
+    margin: auto;
     border-radius: 10px;
-    float: right;
-    text-align: left;
-    height: 30%;
-}
-
-.result {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    float: none;
+    text-align: center;
+    height: 70%;
+    color: #FFFFFF;
+    font-size: 35px;
 }

@@ -12,7 +12,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'SDPKodeGreen123',
-    database: 'maindb'
+    database: 'sys'
 });
 
 // Link to html -- load main page

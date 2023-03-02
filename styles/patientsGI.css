@@ -1,0 +1,128 @@
+head {
+    color: #FFFFFF;
+    background-color: #13005A;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center; /* move heading to the middle */
+    background-color: #13005A; /* add background color */
+    padding: 20px;
+    color:#FFFFFF;
+}
+
+button {
+    background-color: #13005A;
+    border: none;
+    color: #FFFFFF;
+    padding: 14px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #FFFFFF;
+    color: #13005A;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #13005A;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #301934;
+}
+
+.box {
+    background-color: transparent;
+    padding: 20px;
+    width: calc(20% - 30px);
+    margin: auto; /* set margin to auto to center horizontally */
+    border-radius: 10px;
+    float: none; /* remove float */
+    text-align: left;
+    height: 70%;
+    color: #097969;
+}
+
+h2 {
+    color: #097969;
+}
+
+.about-box {
+    background-color: #00337C;
+    padding: 20px;
+    width: calc(80% - 30px);
+    margin: auto;
+    border-radius: 10px;
+    float: none;
+    text-align: left;
+    height: 70%;
+    color: black;
+    opacity: 0.90;
+    margin-bottom: 20px;
+}
+.info-box {
+    background-color: #097969;
+    opacity: 0.90;
+    padding: 20px;
+    width: calc(80% - 30px);
+    margin: auto;
+    border-radius: 10px;
+    float: none;
+    text-align: left;
+    height: 70%;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.more-info-box {
+    background-color: #13005A;
+    opacity: 0.90;
+    padding: 20px;
+    width: calc(80% - 30px);
+    margin: auto;
+    border-radius: 10px;
+    float: none;
+    text-align: left;
+    height: 70%;
+    color: #FFFFFF;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #097969;
+    color: white;
+}
