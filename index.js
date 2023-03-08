@@ -97,10 +97,10 @@ app.post('/update', (req, res) => {
 //  const resultEntries =  Object.entries(results);
 //  const result = resultEntries.map(([key, value]) => ({key, value}));
 
-pool.query(updateUsersTable, valuesForUsers, (error, results) => {
+/*pool.query(updateUsersTable, valuesForUsers, (error, results) => {
     if (error) throw error;
     console.log(`Updated ${results.affectedRows} row(s)`);
-})
+})*/
 
 pool.getConnection((err, connection) => {
     if (err) throw err;
