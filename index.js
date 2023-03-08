@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3100; // choose any port number you like
+const port = 3000; // choose any port number you like
 const hostname = "18.134.161.238";
 
 app.use(express.static(__dirname));
