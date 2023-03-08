@@ -2,7 +2,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000; // choose any port number you like
+const port = 3100; // choose any port number you like
+const hostname = "18.134.161.238";
 
 app.use(express.static(__dirname));
 
@@ -109,6 +110,6 @@ pool.getConnection((err, connection) => {
 });
 
 // Start listening on port...
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+app.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}`);
 });
