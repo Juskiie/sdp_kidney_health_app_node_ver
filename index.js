@@ -10,7 +10,7 @@ app.use(express.static(__dirname));
 const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',               // maindb.cvqsrhluyyah.eu-west-2.rds.amazonaws.com
+    host: 'maindb.cvqsrhluyyah.eu-west-2.rds.amazonaws.com',               // maindb.cvqsrhluyyah.eu-west-2.rds.amazonaws.com
     user: 'root',
     password: 'SDPKodeGreen123',
     database: 'maindb',
