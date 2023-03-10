@@ -42,32 +42,9 @@ const updateUsersTable = `
     WHERE id = ?;
 `
 
-const createPatientsTable = `
-CREATE TABLE \`patients\` (
-  \`ID\` int NOT NULL AUTO_INCREMENT COMMENT 'A unique ID for each patient in the database',
-  \`name\` varchar(255) DEFAULT NULL COMMENT 'The full name for the patient',
-  \`age\` int DEFAULT NULL COMMENT 'Stores the value for the patients age, updates based on their DOB.',
-  \`dob\` date NOT NULL COMMENT 'Stores the date of birth for the patient',
-  \`test_results\` json DEFAULT NULL,
-  PRIMARY KEY (\`ID\`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='This table stores patient information';
-`
-pool.query(createPatientsTable);
-
 const valuesForUsers = ['email@host.com','example_pwrd',1];
 
 const updateResultsData = `
-IF NOT EXISTS (
-  SELECT
-    *
-  FROM
-    INFORMATION_SCHEMA.COLUMNS
-  WHERE
-    TABLE_NAME = 'table_name' AND COLUMN_NAME = 'col_name')
-BEGIN
-  ALTER TABLE table_name
-    ADD col_name data_type NULL
-END;
 UPDATE patients 
 SET test_results = ? 
 WHERE id = ?
