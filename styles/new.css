@@ -67,9 +67,7 @@ li a:hover {
     color: #FFFFFF;
 }
 
-#sex,
-#age,
-#ethnicity {
+#sex, #age, #ethnicity {
     background-color: FFFFFF;
     border: 1px solid #FFFFFF;
     border-radius: 4px;
@@ -79,20 +77,29 @@ li a:hover {
     color: #097969;
 }
 
-form label {
+.box {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 50%;
+    border: 1px solid #FFFFFF;
+    display: inline-block;
+}
+
+.box label {
     display: block;
     margin-top: 10px;
 }
 
-form input[type="text"], form select {
+.box input[type="text"], form select {
     padding: 5px;
     margin-bottom: 10px;
     width: 100%;
-    color: #FFFFFF;
+    color: #000000;
 }
 
+.box input[type=""]
 
-form button[type="submit"] {
+.box button[type="submit"] {
     background-color: #13005A;
     color: white;
     padding: 10px 20px;
@@ -119,4 +126,23 @@ form button[type="submit"] {
     font-size: 40px;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.nav {
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    display: inline-block;
+}
+
+.nav a {
+    display: block;
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    background-color: #555;
 }
