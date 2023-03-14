@@ -6,7 +6,7 @@ const port = 3000; // choose any port number you like
 const hostname = "18.134.161.238";
 const path = require('path')
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 const mysql = require('mysql');
 const pool = mysql.createPool({
