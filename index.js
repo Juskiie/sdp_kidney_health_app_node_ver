@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000; // choose any port number you like
 const hostname = "18.134.161.238";
+const path = require('path')
 
 app.use(express.static(__dirname));
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 
 // SQL QUERIES
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'styles')));
 
 const createUsersTable = `
 CREATE TABLE IF NOT EXISTS \`users\` (
