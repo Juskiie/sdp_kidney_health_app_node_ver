@@ -20,7 +20,7 @@ const pool = mysql.createPool({
 
 // Link to html -- load main page
 app.get('/', (req, res) => {
-    res.sendFile('index.html');
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // SQL QUERIES
