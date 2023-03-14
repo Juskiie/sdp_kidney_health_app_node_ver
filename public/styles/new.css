@@ -68,7 +68,7 @@ li a:hover {
 }
 
 #sex, #age, #ethnicity {
-    background-color: FFFFFF;
+    background-color: #FFFFFF;
     border: 1px solid #FFFFFF;
     border-radius: 4px;
     padding: 5px;
@@ -95,9 +95,8 @@ li a:hover {
     margin-bottom: 10px;
     width: 100%;
     color: #000000;
+    border: black;
 }
-
-.box input[type=""]
 
 .box button[type="submit"] {
     background-color: #13005A;
