@@ -6,7 +6,9 @@ const port = 3000; // choose any port number you like
 const hostname = "18.134.161.238";
 const path = require('path')
 
-app.use('/styles', express.static(__dirname + '/public/styles'));
+// Serve static files from the "public" directory
+app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
+app.use('/scripts', express.static(path.join(__dirname, 'public', 'scripts')));
 
 const mysql = require('mysql');
 const pool = mysql.createPool({
@@ -20,7 +22,7 @@ const pool = mysql.createPool({
 
 // Link to html -- load main page
 app.get('/', (req, res) => {
-    res.sendFile('index.html');
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // SQL QUERIES
