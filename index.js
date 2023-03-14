@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 // SQL QUERIES
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 const createUsersTable = `
 CREATE TABLE IF NOT EXISTS \`users\` (
