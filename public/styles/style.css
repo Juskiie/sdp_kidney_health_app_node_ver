@@ -365,3 +365,14 @@
   height: 80px;
   margin-right: 20px;
 }
+
+.past-result {
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: calc(48% - 30px);
+    margin: 40px;
+    border-radius: 10px;
+    float: right;
+    text-align: left;
+    height: 30%;
+}

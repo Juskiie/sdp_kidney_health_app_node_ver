@@ -4,8 +4,6 @@
 <head>
     <title>Kidney health app home page</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/styles/globalStyle.css">
-    <link rel="stylesheet" href="/styles/new.css">
     <link rel="stylesheet" href="/styles/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="/scripts/calcEFGR.js"></script>
@@ -32,7 +30,7 @@
     </ul>
 
     <div class="calculate">
-        <h2>Calculate your eFGR levels</h2>
+        <h5>Calculate your eGFR levels</h5>
         <form name="efgr-FORM" action="" id="testForm">
 
             <label for="gender">Gender</label>
@@ -65,6 +63,11 @@
         <p>We suggest you contact your GP.</p>
         <p>Keep a note of your results for your appointment.</p>
         <p>For more information visit www.com</p>
+    </div>
+    <div class="past-result"><!-- add content for new box here -->
+        <div class="chartStyle" style="width:50%">
+            <canvas id="line-chart"></canvas>
+        </div>
     </div>
     <div class="healthylifestyle-box">
         <img class="PatientHealthyLifestyle" src="/images/healthylifestyle.png"/>
@@ -164,8 +167,6 @@
 				})
         });
     </script>
-<div class="chartStyle" style="width:50%">
-    <canvas id="line-chart"></canvas>
-</div>
+
 </body>
 </html>
