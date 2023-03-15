@@ -10,6 +10,7 @@ function submitForm(event) {
 		let isFemale = gender==="female";
 		let isBlack = ethnicity==="black";
 		const efgrResult = calcEFGR(creatinine, age, isFemale, isBlack);
+		document.querySelector('.result').textContent = efgrResult.toFixed(2);
 
 		// Do something with the form values here
 		console.log("Gender:", gender);
