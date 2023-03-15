@@ -56,7 +56,6 @@ function submitForm(event) {
 	} finally {
 		return false;
 	}
-
 }
 
 document.querySelector('#testForm').addEventListener('submit', submitForm);

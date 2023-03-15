@@ -9,6 +9,7 @@ const path = require('path')
 // Serve static files from the "public" directory
 app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
 app.use('/scripts', express.static(path.join(__dirname, 'public', 'scripts')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 const mysql = require('mysql');
 const pool = mysql.createPool({
