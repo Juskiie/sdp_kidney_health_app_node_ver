@@ -31,9 +31,9 @@
         <li style="float:right"><a href="#">Logout</a></li>
     </ul>
 
-    <div class="box">
+    <div class="calculate">
         <h2>Calculate your eFGR levels</h2>
-        <form name="efgrFORM" action="" id="testForm">
+        <form name="efgr-FORM" action="" id="testForm">
 
             <label for="gender">Gender</label>
             <select id="gender" name="gender">
@@ -42,7 +42,7 @@
             </select>
 
             <label for="age">Age</label>
-            <input type="text" id="age" name="age">
+            <input type="number" id="age" name="Select Age" min="18" max="60">
 
             <label for="creat">Creatinine</label>
             <input type="text" id="creat" name="creat">
@@ -59,12 +59,15 @@
             <input type="submit" value="submit" id="formSubmitButton">
         </form>
     </div>
-    <div class="right-box">
+    <div class="results">
         <h2>Your eFGR results are:</h2>
         <div class="result">-</div>
         <p>We suggest you contact your GP.</p>
         <p>Keep a note of your results for your appointment.</p>
         <p>For more information visit www.com</p>
+    </div>
+    <div class="healthylifestyle-box">
+        <img class="PatientHealthyLifestyle" src="public/images/healthylifestyle.png"/>
     </div>
     <script id="get-and-update-chart">
 	    const dashBoardButton = document.getElementById('update-chart-button');
