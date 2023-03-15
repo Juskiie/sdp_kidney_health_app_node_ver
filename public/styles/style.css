@@ -1,0 +1,367 @@
+
+		head {
+			color: #FFFFFF;
+			background-color: #13005A;
+			padding: 20px;
+		}
+
+		h1 {
+			text-align: center; /* move heading to the middle */
+			background-color: #13005A; /* add background color */
+			padding: 20px;
+			color:#FFFFFF;
+			margin-bottom:0px;
+		}
+		
+		button {
+            background-color: #13005A;
+            border: none;
+            color: #FFFFFF;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+        }
+
+         button:hover {
+            background-color: #FFFFFF;
+            color: #13005A;
+        }
+		
+      /* Set the color and style of the menu bar */
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #13005A;
+      }
+      li {
+        float: left;
+      }
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      li a:hover {
+        background-color: #301934;
+      }
+		
+		/* add new style for the box */
+        .ClinicianCalculate {
+            background-color: #097969;
+            padding: 20px;
+            width: calc(39% - 30px);
+            margin: 40px;
+            border-radius: 10px;
+            float: left;
+            text-align: left;
+            min-height: 440px;
+            color: #FFFFFF;
+        }
+        
+        .calculate {
+            background-color: #097969;
+            padding: 20px;
+            width: calc(39% - 30px);
+            margin: 40px;
+            border-radius: 10px;
+            float: left;
+            text-align: left;
+            min-height: 440px;
+            color: #FFFFFF;
+        }
+        
+        #sex,
+        #age,
+        #ethnicity,
+        #creatinine {
+          background-color: #FFFFFF;
+          border: 1px solid #FFFFFF;
+          border-radius: 4px;
+          padding: 5px;
+          margin-bottom: 10px;
+          width: 100%;
+          color: #097969;
+        }
+        
+    
+		/* add style for form elements */
+		form label {
+			display: block;
+			margin-top: 10px;
+		}
+		
+		form input[type="text"], form select {
+			padding: 5px;
+			margin-bottom: 10px;
+			width: 100%;
+            color: #FFFFFF; /* change text color to white */
+		}
+		
+		/* add style for submit button */
+		form button[type="submit"] {
+			background-color: #13005A; /* change background color */
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-top: 20px;
+            display: block; /* add display block to center the button */
+            margin: auto; /* add margin auto to center the button */
+		}
+		
+		/* add style for the right box */
+		.results {
+            background-color: #f2f2f2;
+            padding: 20px;
+            width: calc(48% - 30px);
+            margin: 40px;
+            border-radius: 10px;
+            float: right;
+            text-align: left;
+            height: 30%;
+            margin-bottom: 20px;
+        }
+		
+		.result {
+			font-size: 40px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+		
+	   .share-results {
+      background-color: #1C82AD;
+      padding: 20px;
+      width: calc(48% - 30px);
+      margin: 40px;
+      border-radius: 10px;
+      float: right;
+      text-align: center;
+      height: 20%;
+      margin-top: 20px;
+   }
+
+   .share-results p {
+       color: #ffffff;
+  font-size: 30px;
+      margin-bottom: 10px;}
+      
+      .share-results button {
+   background-color: #00337C;
+   color: #FFFFFF;
+   padding: 14px 20px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   cursor: pointer;
+   border-radius: 5px;
+   transition-duration: 0.4s;
+}
+
+.share-results button:hover {
+   background-color: #FFFFFF;
+   color: #00337C;
+}
+
+		/* add style for the image box */
+		.image {
+			background-color: transparent;
+			padding: 20px;
+			width: calc(48% - 30px);
+			margin: 40px;
+			border-radius: 10px;
+			float: left;
+			text-align: center;
+			height: 30%;
+			margin-top: 0px;
+		}
+
+		.healthylifestyle {
+          max-width:100%;
+          max-height:100%;
+          margin:auto;
+      }
+      
+      		.healthylifestyle-box {
+        background-color: transparent;
+        padding: 20px;
+		width: calc(100% - 30px);
+        margin: 0px;
+		border-radius: 10px;
+		float: right;
+		text-align: left;
+		height: 30%;
+		margin-top: 0px;
+		display: flex;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+		.PatientHealthyLifestyle {
+          max-width:50%;
+          max-height:50%;
+          margin:auto;
+      }
+      
+        .PatientBox {
+        background-color: transparent;
+        padding: 20px;
+        width: calc(20% - 30px);
+        margin: auto; /* set margin to auto to center horizontally */
+        border-radius: 10px;
+        float: none; /* remove float */
+        text-align: left;
+        height: 70%;
+        color: #097969;
+      }
+      
+       h2 {
+            color: #097969;
+      }
+      
+      h3 {
+            color: #13005A;
+      }
+       .PatientAbout-box {
+       background-color: #CFE4EE;
+        padding: 20px;
+        width: calc(80% - 30px);
+           border-radius: 10px;
+        float: none;
+        text-align: left;
+        height: 70%;
+        color: black;
+        opacity: 0.90;
+           margin: auto auto 20px;
+       }
+      .PatientInfo-box {
+        background-color: #DFEEEB;
+        opacity: 0.90;
+        padding: 20px;
+        width: calc(80% - 30px);
+          border-radius: 10px;
+        float: none;
+        text-align: left;
+        height: 70%;
+        color: #FFFFFF;
+          margin: auto auto 20px;
+      }
+      
+      .PatientMore-info-box {
+        background-color: #D7D4E3;
+        opacity: 0.90;
+        padding: 20px;
+        width: calc(80% - 30px);
+          border-radius: 10px;
+        float: none;
+        text-align: left;
+        height: 70%;
+        color: black;
+          margin: 20px auto auto;
+      }
+        
+      .ckdimage {
+          max-width:100%;
+          max-height:100%;
+          margin:auto;
+      }
+      
+            .ClinicianBox {
+        background-color: transparent;
+        padding: 20px;
+        width: calc(20% - 30px);
+        margin: auto; /* set margin to auto to center horizontally */
+        border-radius: 10px;
+        float: none; /* remove float */
+        text-align: left;
+        height: 70%;
+        color: #097969;
+      }
+      
+            h3 {
+            color: #13005A;
+      }
+      
+      h5 {
+            color: #ffffff;
+            font-size: 24px;
+            margin-bottom: 10px;
+      }
+      
+       .ClinicianAbout-box {
+       background-color: #CFE4EE;
+        padding: 20px;
+        width: calc(80% - 30px);
+           border-radius: 10px;
+        float: none;
+        text-align: left;
+        height: 70%;
+        color: #097969;
+           margin: auto auto 20px;
+       }
+
+.ClinicianInfo-box {
+  background-color: #DFEEEB;
+  padding: 20px;
+  width: calc(80% - 30px);
+    border-radius: 10px;
+  float: none;
+  text-align: left;
+  height: auto;
+  color: black;
+    margin: auto auto 20px;
+    position: relative;
+}
+
+.ClinicianInfo-box .gipicture {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 350px;
+  height: 430px;
+  border-radius: 10px;
+}
+
+.ClinicianInfo-box p {
+  padding-right: 350px; /* add padding to the right of the paragraphs */
+}
+      
+      .ClinicianMore-info-box {
+        background-color: #097969;
+        opacity: 0.90;
+        padding: 20px;
+        width: calc(80% - 30px);
+        margin: auto;
+        border-radius: 10px;
+        float: none;
+        text-align: center;
+        height: 70%;
+        color: #FFFFFF;
+        font-size: 35px;
+      }
+            .resources {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.resource-image {
+  width: 190px;
+  height: 80px;
+  margin-right: 20px;
+}

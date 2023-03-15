@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KodeGreen's Kidney Health Tracker</title>
+<link rel="stylesheet" type="text/css" href="../public/styles/style.css">
+	<script>
+		document.write("<h1>Welcome to KodeGreen's Kidney Health Tracker</h1>");
+	</script>
+</head>
+<body>
+
+	<ul>
+    <li><button id="dashboard" onclick="location.href='https://geognostical-reinfo.000webhostapp.com/DASHguest.html';">Dashboard</button></li>
+    <li><button id="general-info" onclick="location.href='https://geognostical-reinfo.000webhostapp.com/GIguest.html';">General information</button></li>
+    <li style="float:right"><a href="#logout">Login</a></li>
+	</ul>
+
+	<div class="calculate">
+    <h5>Calculate your eGFR levels</h5>
+    <form id="efgr-form">
+        <label for="sex">Sex</label>
+        <select id="sex" name="Select Gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <label for="age">Age</label>
+			<select id="age" name="Select Age">
+				<script>
+					for (var i = 18; i <= 60; i++) {
+						document.write('<option value="' + i + '">' + i + '</option>');
+					}
+				</script>
+			</select>
+        <label for="ethnicity">Ethnicity</label>
+        <select id="ethnicity" name="Select Ethnicity">
+            <option value="asian">Asian</option>
+            <option value="black">Black or African American</option>
+            <option value="hispanic">Hispanic or Latino</option>
+            <option value="native">Native American or Alaska Native</option>
+            <option value="white">White or Caucasian</option>
+        </select>
+        <label for="creatinine">Creatinine</label>
+        <input type="text" id="creatinine" name="Enter patient's creatinine">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+	<div class="results">
+		<h2>Your eGFR results are:</h2>
+		<div class="result">-</div>
+		<p>We suggest you contact your GP.</p>
+		<p>Keep a note of your results for your appointment.</p>
+		<p>For more information visit www.com</p>
+	</div>
+
+	<div class="image">
+      <img class="healthylifestyle" src="images/healthylifestyle.png"/>
+	</div>
+	
+   <script>
+// Add event listener to the form submit button
+document.querySelector('#efgr-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // prevent the default form submission
+
+    // Get input values
+    const sex = document.querySelector('#sex').value;
+    const age = parseInt(document.querySelector('#age').value);
+    const ethnicity = document.querySelector('#ethnicity').value;
+    const creatinine = parseFloat(document.querySelector('#creatinine').value);
+
+    // Calculate eFGR levels
+    const creatRatio = (sex === 'male') ? 1 : 0.85;
+    const creat = creatinine / creatRatio;
+    const efgr = 186 * (Math.pow((creat / 88.4), -1.154)) * (Math.pow(age, -0.203)) * ((sex === 'female') ? 0.742 : 1) * ((ethnicity === 'black') ? 1.210 : 1);
+
+    // Output the result in the "result" class
+    document.querySelector('.result').textContent = efgr.toFixed(2);
+
+    // Change background color and message based on efgr
+    const resultMessageElement = document.querySelector('#result-message');
+    const rightBoxElement = document.querySelector('.results');
+    if (efgr >= 90) {
+        rightBoxElement.style.backgroundColor = '#C9CC3F';
+        resultMessageElement.innerHTML = 'This is considered normal.';
+        resultElement.classList.add('normal-result');
+    } else if (efgr >= 60 && efgr <= 89) {
+        rightBoxElement.style.backgroundColor = '#E7DFC9';
+        resultMessageElement.innerHTML = 'This is considered mildly low.';
+        resultElement.classList.add('low-result');
+    } else if (efgr >= 45 && efgr <= 59) {
+        rightBoxElement.style.backgroundColor = '#E8D5CE';
+        resultMessageElement.innerHTML = 'This is considered moderately low.';
+        resultElement.classList.add('moderate-result');
+    } else if (efgr >= 30 && efgr <= 44) {
+        rightBoxElement.style.backgroundColor = '#E8CDD2';
+        resultMessageElement.innerHTML = 'This is considered severely low.';
+        resultElement.classList.add('high-result');
+    } else if (efgr >= 15 && efgr <= 29) {
+        rightBoxElement.style.backgroundColor = '#D4C3CA';
+        resultMessageElement.innerHTML = 'This is considered very severely low.';
+        resultElement.classList.add('very-high-result');
+    } else {
+        rightBoxElement.style.backgroundColor = '#D4C3CA';
+        resultMessageElement.innerHTML = 'Your eGFR result is extremely low. Please see your doctor immediately.';
+        resultElement.classList.add('low-result');
+    }
+});
+
+</script>
