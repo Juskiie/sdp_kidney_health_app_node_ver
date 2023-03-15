@@ -3,7 +3,7 @@ console.log("submitForm.js loaded");
 function submitForm(event) {
 	try{
 		event.preventDefault();
-		let sex = document.querySelector('select[name="gender"]').value;
+		let sex = document.querySelector('select[name="sex"]').value;
 		let age = document.querySelector('input[name="age"]').value;
 		let ethnicity = document.querySelector('select[name="ethnicity"]').value;
 		let creatinine = document.querySelector('input[name="creat"]').value;
