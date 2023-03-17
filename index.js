@@ -5,13 +5,11 @@ const app = express();
 const port = 3000; // choose any port number you like
 const hostname = "18.134.161.238";
 const path = require('path')
-
-// Serve static files from the "public" directory
-app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
-app.use('/scripts', express.static(path.join(__dirname, 'public', 'scripts')));
-app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
-
+const session = require('express-session');
+const bcrypt = require('bcrypt');
 const mysql = require('mysql');
+
+// Create mysql connection
 const pool = mysql.createPool({
     connectionLimit: 10,
     host: 'maindb.cvqsrhluyyah.eu-west-2.rds.amazonaws.com',               // maindb.cvqsrhluyyah.eu-west-2.rds.amazonaws.com
@@ -21,11 +19,93 @@ const pool = mysql.createPool({
     port: 3306
 });
 
-// Link to html -- load main page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+// Serve static files from the "public" directory
+app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
+app.use('/scripts', express.static(path.join(__dirname, 'public', 'scripts')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
+// Setup express middleware
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+
+app.use(
+    session({
+        secret: 'secretKey',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { maxAge: 60 * 60 * 1000 }, // 1 hour
+    })
+);
+
+// Create login route
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    const sql = 'SELECT * FROM users WHERE username = ?';
+    pool.query(sql, [username], (err, results) => {
+        if (err) throw err;
+
+        if (results.length > 0) {
+            bcrypt.compare(password, results[0].password, (err, result) => {
+                if (result) {
+                    req.session.loggedin = true;
+                    req.session.username = username;
+                    res.redirect('/index.html');
+                } else {
+                    res.send('Incorrect username and/or password!');
+                }
+            });
+        } else {
+            res.send('Incorrect username and/or password!');
+        }
+    });
 });
 
+app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+// Link to html -- load main page
+app.get('/', (req, res) => {
+    if (req.session.loggedin) {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    } else {
+        res.redirect('/login.html');
+    }
+});
+
+app.get('/index.html', (req, res) => {
+    if (req.session.loggedin) {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    } else {
+        res.redirect('/login.html');
+    }
+});
+
+// User creation
+const saltRounds = 10;
+
+// Dummy data
+const username = 'exampleUser';
+const email = 'example@email.com';
+const plainPassword = 'examplePassword';
+/*
+bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    const sql = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+    pool.query(sql, [username, email, hashedPassword], (err, results) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('User inserted:', results.insertId);
+    });
+});
+*/
 // SQL QUERIES
 app.use(express.json());
 
@@ -39,15 +119,6 @@ CREATE TABLE IF NOT EXISTS \`users\` (
   PRIMARY KEY (\`id\`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 `
-
-// Update the users table
-const updateUsersTable = `
-    UPDATE users
-    SET email = ?, password = ?
-    WHERE id = ?;
-`
-
-const valuesForUsers = ['email@host.com','example_pwrd',1];
 
 const updateResultsData = `
 UPDATE patients 
