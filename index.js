@@ -89,7 +89,7 @@ const saltRounds = 10;
 const username = 'exampleUser';
 const email = 'example@email.com';
 const plainPassword = 'examplePassword';
-
+/*
 bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
     if (err) {
         console.error(err);
@@ -105,7 +105,7 @@ bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
         console.log('User inserted:', results.insertId);
     });
 });
-
+*/
 // SQL QUERIES
 app.use(express.json());
 
