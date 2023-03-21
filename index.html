@@ -83,7 +83,7 @@
     </div>
     <div class="results">
         <h2>Your eFGR results are:</h2>
-        <div class="result">-</div>
+        <div class="result" id="theResult">-</div>
         <p>We suggest you contact your GP.</p>
         <p>Keep a note of your results for your appointment.</p>
         <p>For more information visit www.com</p>
@@ -158,12 +158,11 @@
 
 			const date = new Date(); // Create new date object at current date
             const dateResult = date.toISOString().slice(0, 10);                         // Convert to just "YYYY-MM-DD"
-            const egfrResultValue = document.getElementById("resultData").innerText;    // Not very secure, fix this later
+            const egfrResultValue = document.getElementById("theResult").innerText;    // Not very secure, fix this later
 
-            let patientID = document.getElementById("welcome-msg");                     // Gets patient id from welcome msg. Lazy. Fix later.
-			let results = {
-				dateResult: egfrResultValue
-            }
+            let patientID = document.getElementById("welcome-msg").innerText;           // Gets patient id from welcome msg. Lazy. Fix later.
+			let results={};
+			results[dateResult] = egfrResultValue;
 
             // Old code - just here for reference
 			/*let patientID=1;    // Change these values to values from patientID -- Use form
@@ -178,6 +177,7 @@
 				ID:patientID,
 				data:results
 			}; // This should contain, the user's ID (NHS number), and their latest result
+
             let str = JSON.stringify(data, null, 2);
             console.log(str);
 
