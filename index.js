@@ -112,7 +112,7 @@ app.use(
 
 // Create login route
 // app.post('/login', verifyRecaptcha, (req, res) => {
-app.post('/login', (req, res) => {
+app.post('/login', verifyRecaptcha, (req, res) => {
     const { username, password } = req.body;
 
     const sql = 'SELECT * FROM users WHERE username = ?';
@@ -196,53 +196,7 @@ function addUsers(plainPassword, saltRounds, username, email){
 
 //     2000000002: "p10qw2",
 
-const patientData = {
-    2000000001: "p100001",
-    2000000003: "p100003",
-    2000000004: "p100004",
-    2000000005: "p100005",
-    2000000006: "p100006",
-    2000000007: "p100007",
-    2000000008: "p100008",
-    2000000009: "p1er009",
-    2000000010: "p100010",
-    2000000011: "p10we21",
-    2000000012: "p100012",
-    2000000013: "p100013",
-    2000000014: "p100014",
-    2000000015: "p10_015",
-    2000000016: "p100016",
-    2000000017: "p10x017",
-    2000000018: "p100018",
-    2000000019: "p100019",
-    2000000020: "p100020"
-};
-console.log(patientData);
-let saltRounds = 10;
-let email = "default@email.com";
 
-for (const key in patientData) {
-    if (patientData.hasOwnProperty(key)){
-        const username = key;
-        const password = patientData[key];
-        console.log(`Username: ${username}, Password: ${password}`);
-        bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-
-            const sql = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
-            pool.query(sql, [username, email, hashedPassword], (err, results) => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                console.log('User inserted:', results.insertId);
-            });
-        });
-    }
-}
 
 // SQL QUERIES
 app.use(express.json());
