@@ -1,8 +1,12 @@
-// classless example for javascript implementation of java class
-// By: Casey
-
-// Clean, improved code:
 console.log("calcEFGR.js loaded");
+
+/**
+ * @param creat - the creatinine value recorded by the patient
+ * @param age - the patients age
+ * @param isFemale - is the patient female?
+ * @param isBlack - is the patient black?
+ * @returns {string} - The eGFR value for the patient, to 3 digits.
+ */
 export default function calcEFGR(creat, age, isFemale, isBlack) {
 	const a = Math.pow((creat / 88.4), -1.154);
 	const b = Math.pow(age, -0.203);

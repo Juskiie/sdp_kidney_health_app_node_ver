@@ -1,18 +1,25 @@
 import calcEFGR from './calcEFGR.js';
 console.log("submitForm.js loaded");
+
+/**
+ * Processes information sent from the eGFR calculator form and updates the HTML.
+ * @author L. Casey Bull - K2028885@kingston.ac.uk
+ * @param event - This is the form details when the submit button is clicked.
+ * @returns {boolean} - Returns false, unless there's an error
+ */
 function submitForm(event) {
 	try{
-		event.preventDefault();
+		event.preventDefault();     // Prevent page reloading needlessly
 		let sex = document.querySelector('select[name="sex"]').value;
 		let age = document.querySelector('input[name="age"]').value;
 		let ethnicity = document.querySelector('select[name="ethnicity"]').value;
 		let creatinine = document.querySelector('input[name="creat"]').value;
 		let isFemale = sex==="female";
 		let isBlack = ethnicity==="black";
-		const efgrResult = calcEFGR(creatinine, age, isFemale, isBlack);
+		const efgrResult = calcEFGR(creatinine, age, isFemale, isBlack);    // Use eGFR calculator script to get value for patient
 		document.querySelector('.result').textContent = efgrResult;
 
-		// Do something with the form values here
+		// Simple logging for debugging purposes; can be removed.
 		console.log("Sex:", sex);
 		console.log("Age:", age);
 		console.log("Ethnicity:", ethnicity);
@@ -23,6 +30,7 @@ function submitForm(event) {
 		let resultMessageElement = document.querySelector('#result-message');
 		const rightBoxElement = document.querySelector('.results');
 
+		// Determines background colour based on eGFR value
 		switch(true) {
 			case efgrResult >= 90:
 				rightBoxElement.style.backgroundColor = '#C9CC3F';

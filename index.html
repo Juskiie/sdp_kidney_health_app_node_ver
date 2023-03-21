@@ -4,6 +4,7 @@
 <head>
     <title>Kidney health app home page</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="/scripts/calcEFGR.js"></script>
@@ -18,9 +19,9 @@
 
 </head>
 <body>
-<script>
-    document.write("<h1>Welcome to KodeGreen's Kidney Health Tracker</h1>");
-</script>
+    <h1>Welcome to KodeGreen's Kidney Health Tracker</h1>
+    <h2 id="welcome-msg"></h2>
+    <script src="main.js"></script>
     <ul>
         <li><button id="dashboard">Dashboard</button></li>
         <li><button id="general-info">General information</button></li>
@@ -63,7 +64,7 @@
         <p>Keep a note of your results for your appointment.</p>
         <p>For more information visit www.com</p>
     </div>
-    <div class="past-result"><!-- add content for new box here -->
+    <div class="past-result" id="resultData"><!-- add content for new box here -->
         <div class="chartStyle" style="width:50%">
             <canvas id="line-chart"></canvas>
         </div>
@@ -131,18 +132,28 @@
 			let ethnicity = document.getElementById("ethnicity").value;
 			console.log(gender, age, ethnicity);
 
+			const date = new Date(); // Create new date object at current date
+            const dateResult = date.toISOString().slice(0, 10);                         // Convert to just "YYYY-MM-DD"
+            const egfrResultValue = document.getElementById("resultData").innerText;    // Not very secure, fix this later
 
-			let patientID=1;    // Change these values to values from patientID -- Use form
+            let patientID = document.getElementById("welcome-msg");                     // Gets patient id from welcome msg. Lazy. Fix later.
+			let results = {
+				dateResult: egfrResultValue     // Pass current date: egfr value
+            }
+
+            // Old code - just here for reference
+			/*let patientID=1;    // Change these values to values from patientID -- Use form
 			let results= {  // Change these values to values from the form      -- Use form
 				"2023-01-01": 1,
 				"2023-01-02": 2,
 				"2023-01-03": 3
-			};
+			};*/
+
 
 			let data = {
 				ID:patientID,
 				data:results
-			}; // This should contain, the user's info, and their results
+			}; // This should contain, the user's ID (NHS number), and their latest result
 
 
 			fetch('/update', {
