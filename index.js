@@ -222,7 +222,7 @@ WHERE name = ?
 const getResultsData = `
     SELECT test_results
     FROM patients 
-    WHERE id = ?
+    WHERE name = ?
 `
 
 // Handle request to update results data
