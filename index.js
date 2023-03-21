@@ -153,6 +153,7 @@ let saltRounds = 10;
 let email = "default@email.com";
 
 for (let [key, value] of mapData) {
+    console.log(key, value, mapData);
     addUsers(value, saltRounds, key, email);
 }
 
