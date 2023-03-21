@@ -188,18 +188,23 @@
 				},
 				body: JSON.stringify(data)
 			})
-				.then(res => res.json())
+				.then(res => {
+					if (!res.ok) {
+						throw new Error(res.statusText);
+					}
+					return res.json();
+				})
 				.then(data => {
 					// handle the response data here
 					let [Akeys,Avals]=splitJSONData(data);
 					console.log(Akeys); // Returns all dates in order
 					console.log(Avals); // Returns all values in order
-                    drawNewChart(Akeys,Avals);
+					drawNewChart(Akeys,Avals);
 				})
 				.catch(error => {
 					// handle errors here
 					console.error(error);
-				})
+				});
         });
     </script>
 

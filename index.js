@@ -229,7 +229,6 @@ const getResultsData = `
 // Handle POST requests to receive test results
 app.post('/update', (req, res) => {
     // Retrieve the data from the backend
-    // let data=req.body;
     let id=req.body.ID;
     let testResults = req.body.data;
     const testResultsJson = JSON.stringify(testResults);
@@ -237,13 +236,15 @@ app.post('/update', (req, res) => {
     pool.query(updateResultsData, [testResultsJson,id], (error, updateResults, fields) => {
         if (error){
             console.error(error);
-            res.sendStatus(500);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
         }
 
         pool.query(getResultsData, [id], (error, getResults, fields) =>{
             if (error) {
                 console.error(error);
-                res.sendStatus(500);
+                res.status(500).json({ error: 'Internal Server Error' });
+                return;
             }
             const testResultsFromDb = JSON.parse(getResults[0].test_results);
             const result = Object.entries(testResultsFromDb).map(([date, value]) => ({ date, value }));
