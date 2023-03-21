@@ -153,10 +153,7 @@ let saltRounds = 10;
 let email = "default@email.com";
 
 for (let [key, value] of mapData) {
-    const username = key;
-    const plainPassword = value;
-    console.log(`Username: ${username}, Password: ${password}`);
-    addUsers(plainPassword, saltRounds, username, email);
+    addUsers(value, saltRounds, key, email);
 }
 
 // SQL QUERIES
