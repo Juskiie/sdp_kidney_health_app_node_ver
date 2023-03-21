@@ -46,20 +46,6 @@
 	    });
     </script>
 
-    <div id="register-form">
-        <form action="/register" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" required><br>
-
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required><br>
-
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required><br>
-
-            <button type="submit">Register</button>
-        </form>
-    </div>
     <ul>
         <li><button id="dashboard">Dashboard</button></li>
         <li><button id="general-info">General information</button></li>
@@ -176,7 +162,7 @@
 
             let patientID = document.getElementById("welcome-msg");                     // Gets patient id from welcome msg. Lazy. Fix later.
 			let results = {
-				dateResult: egfrResultValue     // Pass current date: egfr value
+				dateResult: egfrResultValue
             }
 
             // Old code - just here for reference

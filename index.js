@@ -58,6 +58,9 @@ const pool = mysql.createPool({
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
+/**
+ * @deprecated - Was used to register new users
+ */
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -111,7 +114,6 @@ app.use(
 );
 
 // Create login route
-// app.post('/login', verifyRecaptcha, (req, res) => {
 app.post('/login', verifyRecaptcha, (req, res) => {
     const { username, password } = req.body;
 
@@ -145,7 +147,7 @@ app.get('/getUsername', (req, res) => {
 });
 
 // Initialise with login page if user hasn't logged in.
-app.get('/login.html', (req, res) => {
+app.get('/login.html', verifyRecaptcha, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
@@ -214,7 +216,7 @@ CREATE TABLE IF NOT EXISTS \`users\` (
 const updateResultsData = `
 UPDATE patients 
 SET test_results = ? 
-WHERE id = ?
+WHERE name = ?
 `
 
 const getResultsData = `
