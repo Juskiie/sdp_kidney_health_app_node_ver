@@ -178,8 +178,8 @@
 				ID:patientID,
 				data:results
 			}; // This should contain, the user's ID (NHS number), and their latest result
-
-            alert(data);
+            let str = JSON.stringify(data, null, 2);
+            alert(str);
 
 			fetch('/update', {
 				method: 'POST',
