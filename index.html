@@ -43,6 +43,21 @@
 			    });
 	    });
     </script>
+
+    <div>
+        <form action="/register" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required><br>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
     <ul>
         <li><button id="dashboard">Dashboard</button></li>
         <li><button id="general-info">General information</button></li>

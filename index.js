@@ -26,14 +26,39 @@ const pool = mysql.createPool({
     port: 3306
 });
 
+// Setup express middleware
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+
+
+app.post('/register', async (req, res) => {
+    const { username, email, password } = req.body;
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const query = `
+            INSERT INTO users (username, email, password)
+            VALUES (?, ?, ?);
+        `;
+
+        const connection = await pool.getConnection();
+        const [result] = await connection.execute(query, [username, email, hashedPassword]);
+        connection.release();
+
+        res.status(201).send('User created successfully.');
+    } catch (error) {
+        res.status(500).send('Error creating user.');
+        console.error(error);
+    }
+});
+
 // Serve static files from the public directory
 app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
 app.use('/scripts', express.static(path.join(__dirname, 'public', 'scripts')));
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
-// Setup express middleware
-app.use(bodyParser.urlencoded({ extended: false}));
-app.use(bodyParser.json());
 
 // Create a session and cookie for users
 app.use(
