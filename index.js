@@ -15,6 +15,34 @@ const path = require('path')
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const mysql = require('mysql');
+const axios = require('axios');
+
+const verifyRecaptcha = async (req, res, next) => {
+    const recaptchaResponse = req.body['g-recaptcha-response'];
+
+    if (!recaptchaResponse) {
+        return res.status(400).send('reCAPTCHA not completed.');
+    }
+
+    try {
+        const result = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
+            params: {
+                secret: '6Ld9Ox0lAAAAAI0kgVw4Ty4CSOExbmlzzeLmCuIj',
+                response: recaptchaResponse,
+                remoteip: req.ip
+            }
+        });
+
+        if (result.data.success) {
+            next();
+        } else {
+            res.status(400).send('reCAPTCHA validation failed.');
+        }
+    } catch (error) {
+        res.status(500).send('Error validating reCAPTCHA.');
+        console.error(error);
+    }
+};
 
 // Create mysql connection
 const pool = mysql.createPool({
@@ -66,30 +94,6 @@ app.post('/register', async (req, res) => {
     }
 });
 
-/*
-app.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
-
-    try {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        const query = `
-            INSERT INTO users (username, email, password)
-            VALUES (?, ?, ?);
-        `;
-
-        const connection = await pool.getConnection();
-        const [result] = await connection.execute(query, [username, email, hashedPassword]);
-        connection.release();
-
-        res.status(201).send('User created successfully.');
-    } catch (error) {
-        res.status(500).send('Error creating user.');
-        console.error(error);
-    }
-});*/
-
 // Serve static files from the public directory
 app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
 app.use('/scripts', express.static(path.join(__dirname, 'public', 'scripts')));
@@ -107,7 +111,7 @@ app.use(
 );
 
 // Create login route
-app.post('/login', (req, res) => {
+app.post('/login', verifyRecaptcha, (req, res) => {
     const { username, password } = req.body;
 
     const sql = 'SELECT * FROM users WHERE username = ?';
