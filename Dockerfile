@@ -8,6 +8,7 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 80/tcp
+EXPOSE 80/udp
 
 CMD [ "node", "index.js" ]
