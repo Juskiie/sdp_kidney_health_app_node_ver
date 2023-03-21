@@ -147,7 +147,7 @@ app.get('/getUsername', (req, res) => {
 });
 
 // Initialise with login page if user hasn't logged in.
-app.get('/login.html', (req, res) => {
+app.get('/login.html', verifyRecaptcha, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
