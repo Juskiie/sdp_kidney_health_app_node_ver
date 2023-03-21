@@ -30,7 +30,43 @@ const pool = mysql.createPool({
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
+app.post('/register', async (req, res) => {
+    const { username, email, password } = req.body;
 
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const query = `
+            INSERT INTO users (username, email, password)
+            VALUES (?, ?, ?);
+        `;
+
+        pool.getConnection((err, connection) => {
+            if (err) {
+                res.status(500).send('Error getting a database connection.');
+                console.error(err);
+                return;
+            }
+
+            connection.query(query, [username, email, hashedPassword], (error, result) => {
+                connection.release();
+
+                if (error) {
+                    res.status(500).send('Error creating user.');
+                    console.error(error);
+                } else {
+                    res.status(201).send('User created successfully.');
+                }
+            });
+        });
+    } catch (error) {
+        res.status(500).send('Error hashing password.');
+        console.error(error);
+    }
+});
+
+/*
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -52,7 +88,7 @@ app.post('/register', async (req, res) => {
         res.status(500).send('Error creating user.');
         console.error(error);
     }
-});
+});*/
 
 // Serve static files from the public directory
 app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
