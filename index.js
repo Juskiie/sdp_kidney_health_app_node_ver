@@ -148,12 +148,13 @@ const patientData = `2000000001 p100001
 2000000019 p100019
 2000000020 p100020`;
 const mapData = new Map(patientData.split('\n').map(line => line.split(' ')));
-
+console.log(mapData);
 let saltRounds = 10;
 let email = "default@email.com";
 
 for (let [key, value] of mapData) {
     console.log(key, value, mapData);
+    alert("working");
     addUsers(value, saltRounds, key, email);
 }
 
