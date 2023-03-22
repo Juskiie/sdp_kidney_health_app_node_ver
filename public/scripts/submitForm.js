@@ -27,11 +27,11 @@ function submitForm(event) {
 		console.log(efgrResult);
 		alert("Your EFGR value is: "+efgrResult);
 
-		let resultMessageElement = document.querySelector('#result-message');
+		// let resultMessageElement = document.querySelector('#result-message');
 		const rightBoxElement = document.querySelector('.results');
 
 		// Determines background colour based on eGFR value
-		document.getElementById("resultMessage").style.visibility = "visible";
+		// document.getElementById("resultMessage").style.visibility = "visible";
 		switch(true) {
 			case efgrResult >= 90:
 				rightBoxElement.style.backgroundColor = '#C9CC3F';
