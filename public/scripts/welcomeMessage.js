@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 console.log("welcomeMessage.js loaded");
-=======
-// welcomeMessage.js
->>>>>>> origin/master
+
 /**
  * Very simple script, when main page loads updates welcome message with users username.
  */
