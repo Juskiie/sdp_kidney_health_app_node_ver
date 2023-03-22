@@ -3,9 +3,6 @@
  * @author L. Casey Bull - K2028885@kingston.ac.uk
  * @type {e | (() => Express)}
  */
-
-
-// Express setup
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -214,10 +211,11 @@ CREATE TABLE IF NOT EXISTS \`users\` (
 `
 
 const updateResultsData = `
-UPDATE patients 
-SET test_results = ? 
+UPDATE patients
+SET test_results = CONCAT(test_results, ?)
 WHERE name = ?
-`
+`;
+
 
 const getResultsData = `
     SELECT test_results

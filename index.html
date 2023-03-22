@@ -23,29 +23,7 @@
 <body>
     <h1>Welcome to KodeGreen's Kidney Health Tracker</h1>
     <h2 id="welcome-msg"></h2>
-    <script>
-	    /**
-	     * Very simple script, when main page loads updates welcome message with users username.
-	     */
-	    window.addEventListener('DOMContentLoaded', () => {
-		    fetch('/getUsername')
-			    .then((response) => {
-				    if (response.ok) {
-					    return response.json();
-				    } else {
-					    throw new Error('Unauthorized');
-				    }
-			    })
-			    .then((data) => {
-				    const welcomeMsg = document.getElementById('welcome-msg');
-				    welcomeMsg.textContent = `${data.username}`;
-			    })
-			    .catch((error) => {
-				    console.error('Error fetching username:', error);
-			    });
-	    });
-    </script>
-
+    <script type="module" src="/scripts/welcomeMessage.js"></script>
     <ul>
         <li><button id="dashboard">Dashboard</button></li>
         <li><button id="general-info">General information</button></li>
@@ -163,15 +141,6 @@
             let patientID = document.getElementById("welcome-msg").innerText;           // Gets patient id from welcome msg. Lazy. Fix later.
 			let results={};
 			results[dateResult] = egfrResultValue;
-
-            // Old code - just here for reference
-			/*let patientID=1;    // Change these values to values from patientID -- Use form
-			let results= {  // Change these values to values from the form      -- Use form
-				"2023-01-01": 1,
-				"2023-01-02": 2,
-				"2023-01-03": 3
-			};*/
-
 
 			let data = {
 				ID:patientID,
