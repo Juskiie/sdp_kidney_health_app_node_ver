@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS \`users\` (
 
 const updateResultsData = `
 UPDATE patients
-SET test_results = JSON_SET(test_results, ?)
+SET test_results ?
 WHERE name = ?
 `;
 
