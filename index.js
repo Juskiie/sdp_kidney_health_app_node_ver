@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS \`users\` (
 
 const updateResultsData = `
 UPDATE patients
-SET test_results = CONCAT(test_results, ?)
+SET test_results = JSON_SET(test_results, ?)
 WHERE name = ?
 `;
 
@@ -234,14 +234,14 @@ app.post('/update', (req, res) => {
     pool.query(updateResultsData, [testResultsJson,id], (error, updateResults, fields) => {
         if (error){
             console.error(error);
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({ error: 'Internal Server Error: Unable to update table' });
             return;
         }
 
         pool.query(getResultsData, [id], (error, getResults, fields) =>{
             if (error) {
                 console.error(error);
-                res.status(500).json({ error: 'Internal Server Error' });
+                res.status(500).json({ error: 'Internal Server Error: Unable to retrieve table data' });
                 return;
             }
             const testResultsFromDb = JSON.parse(getResults[0].test_results);
