@@ -31,30 +31,31 @@ function submitForm(event) {
 		const rightBoxElement = document.querySelector('.results');
 
 		// Determines background colour based on eGFR value
+		document.getElementById("resultMessage").style.visibility = "visible";
 		switch(true) {
 			case efgrResult >= 90:
 				rightBoxElement.style.backgroundColor = '#C9CC3F';
-				resultMessageElement.innerHTML = 'This is considered normal.';
+				document.getElementById("resultMessage").innerText = 'This is considered normal.';
 				break;
 			case efgrResult >= 60 && efgrResult <= 89:
 				rightBoxElement.style.backgroundColor = '#E7DFC9';
-				resultMessageElement.innerHTML = 'This is considered mildly low.';
+				document.getElementById("resultMessage").innerText = 'This is considered mildly low.';
 				break;
 			case efgrResult >= 45 && efgrResult <= 59:
 				rightBoxElement.style.backgroundColor = '#E8D5CE';
-				resultMessageElement.innerHTML = 'This is considered moderately low.';
+				document.getElementById("resultMessage").innerText = 'This is considered moderately low.';
 				break;
 			case efgrResult >= 30 && efgrResult <= 44:
 				rightBoxElement.style.backgroundColor = '#E8CDD2';
-				resultMessageElement.innerHTML = 'This is considered severely low.';
+				document.getElementById("resultMessage").innerText = 'This is considered severely low.';
 				break;
 			case efgrResult >= 15 && efgrResult <= 29:
 				rightBoxElement.style.backgroundColor = '#D4C3CA';
-				resultMessageElement.innerHTML = 'This is considered very severely low.';
+				document.getElementById("resultMessage").innerText = 'This is considered very severely low.';
 				break;
 			default:
 				rightBoxElement.style.backgroundColor = '#D4C3CA';
-				resultMessageElement.innerHTML = 'Your eGFR result is extremely low. Please see your doctor immediately.';
+				document.getElementById("resultMessage").innerText = 'Your eGFR result is extremely low. Please see your doctor immediately.';
 				break;
 		}
 

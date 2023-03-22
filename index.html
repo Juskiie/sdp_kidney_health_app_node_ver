@@ -44,7 +44,7 @@
             <label for="age">Age</label>
             <input type="number" id="age" name="age" min="18" max="60">
 
-            <label for="creat">Creatinine</label>
+            <label for="creat">Creatinine (mmol/L)</label>
             <input type="number" id="creat" name="creat" min="0" max="100" default="0">
 
             <label for="ethnicity">Ethnicity</label>
@@ -62,9 +62,10 @@
     <div class="results">
         <h2>Your eFGR results are:</h2>
         <div class="result" id="theResult">-</div>
-        <p>We suggest you contact your GP.</p>
-        <p>Keep a note of your results for your appointment.</p>
-        <p>For more information visit www.com</p>
+        <p id="resultMessage" hidden>-</p>
+        <p hidden>We suggest you contact your GP.</p>
+        <p hidden>Keep a note of your results for your appointment.</p>
+        <p hidden>For more information visit www.com</p>
     </div>
     <div class="past-result" id="resultData"><!-- add content for new box here -->
         <div class="chartStyle" style="width:50%">
