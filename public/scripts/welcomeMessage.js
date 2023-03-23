@@ -9,7 +9,7 @@ export async function updateWelcomeMessage() {
 		if (response.ok) {
 			const data = await response.json();
 			const welcomeMsg = document.getElementById('welcome-msg');
-			welcomeMsg.textContent = `${data.username}`;
+			welcomeMsg.textContent = `Welcome: ${data.username}`;
 		} else {
 			throw new Error('Unauthorized');
 		}

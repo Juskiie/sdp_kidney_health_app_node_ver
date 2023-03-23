@@ -222,6 +222,14 @@ app.get('/login.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
+app.get('/clinician.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'clinician.html'));
+});
+
+app.get('/patient.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'patient.html'));
+});
+
 
 // SQL QUERIES
 app.use(express.json());
@@ -249,12 +257,6 @@ const getResultsData = `
     FROM patients 
     WHERE name = ?
 `
-const setRoles = `
-SELECT 'clinician' as role, * FROM clinician WHERE username = ? 
-UNION 
-SELECT 'patient' as role, * FROM patient WHERE username = ?
-`;
-
 
 /**
  * Handles post requests to the database for updating the 'patients' table.
