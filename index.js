@@ -122,8 +122,8 @@ app.use(
  */
 app.post('/login', verifyRecaptcha, (req, res) => {
     const {username, password} = req.body;
-    const clinicianSql = 'SELECT * FROM clinicians WHERE username = ?';
-    const patientSql = 'SELECT * FROM patients WHERE username = ?';
+    const clinicianSql = 'SELECT * FROM clinicians WHERE name = ?';
+    const patientSql = 'SELECT * FROM patients WHERE name = ?';
     const user = 'SELECT * FROM users WHERE username = ?';
 
     pool.query(clinicianSql, [username], (err, clinicianResults) => {
