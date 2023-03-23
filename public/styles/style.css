@@ -302,6 +302,14 @@
             font-size: 24px;
             margin-bottom: 10px;
       }
+
+        h7 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #000000;
+        }
       
        .ClinicianAbout-box {
        background-color: #CFE4EE;
