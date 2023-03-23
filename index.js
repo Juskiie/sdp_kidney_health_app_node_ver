@@ -126,12 +126,12 @@ app.post('/login', verifyRecaptcha, (req, res) => {
     const patientSql = 'SELECT * FROM patients WHERE name = ?';
     const user = 'SELECT * FROM users WHERE username = ?';
 
-    pool.query(clinicianSql, [username], (err, clinicianResults) => {
+    pool.query(clinicianSql, [username], (err, results) => {
         if (err) throw err;
 
         // Check if user is a clinician
-        if (clinicianResults.length > 0) {
-            bcrypt.compare(password, clinicianResults[0].password, (err, result) => {
+        if (results.length > 0) {
+            bcrypt.compare(password, results[0].password, (err, result) => {
                 if (result) {
                     req.session.loggedin = true;
                     req.session.username = username;
@@ -142,11 +142,11 @@ app.post('/login', verifyRecaptcha, (req, res) => {
             });
         } else {
             // Check if user is a patient
-            pool.query(patientSql, [username], (err, patientResults) => {
+            pool.query(patientSql, [username], (err, results) => {
                 if (err) throw err;
 
-                if (patientResults.length > 0) {
-                    bcrypt.compare(password, patientResults[0].password, (err, result) => {
+                if (results.length > 0) {
+                    bcrypt.compare(password, results[0].password, (err, result) => {
                         if (result) {
                             req.session.loggedin = true;
                             req.session.username = username;
