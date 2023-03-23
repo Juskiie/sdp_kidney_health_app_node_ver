@@ -1,8 +1,8 @@
-/**
+/*
  * Node.js server backend.
  * @author L. Casey Bull - K2028885@kingston.ac.uk
- * @type {e | (() => Express)}
  */
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -14,6 +14,13 @@ const bcrypt = require('bcrypt');
 const mysql = require('mysql');
 const axios = require('axios');
 
+/**
+ * Checks that the reCAPTCHA was completed by the user
+ * @param req - HTTP request argument to the middleware function
+ * @param res - HTTP response argument to the middleware function
+ * @param next - Callback argument for middleware function
+ * @returns {Promise<*>} - async function promises to complete
+ */
 const verifyRecaptcha = async (req, res, next) => {
     const recaptchaResponse = req.body['g-recaptcha-response'];
 
@@ -56,7 +63,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 /**
- * @deprecated - Was used to register new users
+ * @deprecated - Used to register new users
  */
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
@@ -110,31 +117,72 @@ app.use(
     })
 );
 
-// Create login route
+/**
+ * Creates the login route, and verifies reCaptcha was completed.
+ */
 app.post('/login', verifyRecaptcha, (req, res) => {
-    const { username, password } = req.body;
+    const {username, password} = req.body;
+    const clinicianSql = 'SELECT * FROM clinician WHERE username = ?';
+    const patientSql = 'SELECT * FROM patient WHERE username = ?';
+    const user = 'SELECT * FROM users WHERE username = ?';
 
-    const sql = 'SELECT * FROM users WHERE username = ?';
-    pool.query(sql, [username], (err, results) => {
+    pool.query(clinicianSql, [username], (err, clinicianResults) => {
         if (err) throw err;
 
-        if (results.length > 0) {
-            bcrypt.compare(password, results[0].password, (err, result) => {
+        // Check if user is a clinician
+        if (clinicianResults.length > 0) {
+            bcrypt.compare(password, clinicianResults[0].password, (err, result) => {
                 if (result) {
                     req.session.loggedin = true;
                     req.session.username = username;
-                    res.redirect('/index.html');
+                    res.redirect('/clinician.html');
                 } else {
                     res.send('Incorrect username and/or password!');
                 }
             });
         } else {
-            res.send('Incorrect username and/or password!');
+            // Check if user is a patient
+            pool.query(patientSql, [username], (err, patientResults) => {
+                if (err) throw err;
+
+                if (patientResults.length > 0) {
+                    bcrypt.compare(password, patientResults[0].password, (err, result) => {
+                        if (result) {
+                            req.session.loggedin = true;
+                            req.session.username = username;
+                            res.redirect('/patient.html');
+                        } else {
+                            res.send('Incorrect username and/or password!');
+                        }
+                    });
+                } else {
+                    // If neither patient nor clinician, send to guest page.
+                    pool.query(user, [username], (err, results) => {
+                        if (err) throw err;
+
+                        if (results.length > 0) {
+                            bcrypt.compare(password, results[0].password, (err, result) => {
+                                if (result) {
+                                    req.session.loggedin = true;
+                                    req.session.username = username;
+                                    res.redirect('/index.html');
+                                } else {
+                                    res.send('Incorrect username and/or password!');
+                                }
+                            });
+                        }
+                    })
+                }
+            });
         }
     });
 });
 
-// Used by main.js to dynamically update page with current username.
+/**
+ * Gets the username of the user currently logged in.
+ * First authenticates the user is logged in, and if not returns
+ * a response code 401.
+ */
 app.get('/getUsername', (req, res) => {
     if (req.session.loggedin) {
         res.json({ username: req.session.username });
@@ -143,12 +191,10 @@ app.get('/getUsername', (req, res) => {
     }
 });
 
-// Initialise with login page if user hasn't logged in.
-app.get('/login.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-
-// Link to html -- load main page
+/**
+ * Static route for the main page index.html.
+ * If user isn't logged in, redirects to login page.
+ */
 app.get('/', (req, res) => {
     if (req.session.loggedin) {
         res.sendFile(path.join(__dirname, 'index.html'));
@@ -157,6 +203,10 @@ app.get('/', (req, res) => {
     }
 });
 
+/**
+ * Serves the same function as the above code, except
+ * it works from the main page if the user tries to load it without logging in.
+ */
 app.get('/index.html', (req, res) => {
     if (req.session.loggedin) {
         res.sendFile(path.join(__dirname, 'index.html'));
@@ -165,9 +215,21 @@ app.get('/index.html', (req, res) => {
     }
 });
 
+/**
+ * Creates the static route for the login page
+ */
+app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+
 // SQL QUERIES
 app.use(express.json());
 
+
+/**
+ * Pre-made sql queries
+ */
 const createUsersTable = `
 CREATE TABLE IF NOT EXISTS \`users\` (
   \`id\` int NOT NULL AUTO_INCREMENT,
@@ -177,22 +239,28 @@ CREATE TABLE IF NOT EXISTS \`users\` (
   PRIMARY KEY (\`id\`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 `
-
 const updateResultsData = `
 UPDATE patients 
 SET test_results = ? 
 WHERE name = ?
 `
-
-
 const getResultsData = `
     SELECT test_results
     FROM patients 
     WHERE name = ?
 `
+const setRoles = `
+SELECT 'clinician' as role, * FROM clinician WHERE username = ? 
+UNION 
+SELECT 'patient' as role, * FROM patient WHERE username = ?
+`;
 
-// Handle request to update results data
-// Handle POST requests to receive test results
+
+/**
+ * Handles post requests to the database for updating the 'patients' table.
+ * First, handles the data send from the front end.
+ * Then returns the completed results from the database.
+ */
 app.post('/update', (req, res) => {
     // Retrieve the data from the backend
     let id=req.body.ID;
@@ -219,21 +287,13 @@ app.post('/update', (req, res) => {
     });
 });
 
-//  const resultEntries =  Object.entries(results);
-//  const result = resultEntries.map(([key, value]) => ({key, value}));
-
-/*pool.query(updateUsersTable, valuesForUsers, (error, results) => {
-    if (error) throw error;
-    console.log(`Updated ${results.affectedRows} row(s)`);
-})*/
-
 pool.getConnection((err, connection) => {
     if (err) throw err;
     console.log('Connected to MySQL server!');
     connection.release();
 });
 
-// Start listening on port...
+// I'm listening...
 app.listen(port,() => {
     console.log(`Server running at http://localhost:${port}`);
 });
