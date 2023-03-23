@@ -122,7 +122,7 @@ app.use(
  */
 app.post('/login', verifyRecaptcha, (req, res) => {
     const {username, password} = req.body;
-    const clinicianSql = 'SELECT * FROM clinicians WHERE name = ?';
+    const clinicianSql = 'SELECT * FROM clinicians WHERE username = ?';
     const patientSql = 'SELECT * FROM patients WHERE name = ?';
     const user = 'SELECT * FROM users WHERE username = ?';
 
