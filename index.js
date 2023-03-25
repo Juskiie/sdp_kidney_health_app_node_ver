@@ -134,7 +134,7 @@ app.post('/login', verifyRecaptcha, (req, res) => {
                     req.session.loggedin = true;
                     req.session.username = username;
 
-                    const clinicianSql = 'SELECT * FROM clinician WHERE username = ?';
+                    const clinicianSql = 'SELECT * FROM clinicians WHERE username = ?';
                     pool.query(clinicianSql, [username], (err, clinicianResults) => {
                         if (err) throw err;
 
