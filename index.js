@@ -225,7 +225,7 @@ app.get('/patient.html', (req, res) => {
  */
 app.get('/patient_general_info.html', (req, res) => {
     if (req.session.loggedin) {
-        res.sendFile(path.join(__dirname, 'patient_general_info.html'));
+        res.sendFile(path.join(__dirname, 'public', 'patient_general_info.html'));
     } else {
         res.redirect('/login.html');
     }
@@ -233,7 +233,7 @@ app.get('/patient_general_info.html', (req, res) => {
 
 app.get('/clinician_general_info.html', (req, res) => {
     if (req.session.loggedin) {
-        res.sendFile(path.join(__dirname, 'clinician_general_info.html'));
+        res.sendFile(path.join(__dirname, 'public', 'clinician_general_info.html'));
     } else {
         res.redirect('/login.html');
     }
