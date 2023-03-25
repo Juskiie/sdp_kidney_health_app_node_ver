@@ -1,6 +1,8 @@
 console.log("calcEFGR.js loaded");
 
 /**
+ * Takes input of creatinine, age, if the patient is female or not and if the patient's ethnicity is black or not,
+ * then calculates the eGFR and returns to user in mmol/ml
  * @param creat - the creatinine value recorded by the patient
  * @param age - the patients age
  * @param isFemale - is the patient female?
