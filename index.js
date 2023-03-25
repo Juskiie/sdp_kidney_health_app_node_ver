@@ -220,11 +220,7 @@ app.get('/patient.html', (req, res) => {
  * Creates the static route for patient general information page
  */
 app.get('/patient_general_info.html', (req, res) => {
-    if (req.session.loggedin) {
-        res.sendFile(path.join(__dirname, 'public', 'patient_general_info.html'));
-    } else {
-        res.redirect('/login.html');
-    }
+    res.sendFile(path.join(__dirname, 'public', 'patient_general_info.html'));
 })
 
 app.get('/clinician_general_info.html', (req, res) => {
