@@ -184,11 +184,7 @@ app.get('/', (req, res) => {
  * it works from the main page if the user tries to load it without logging in.
  */
 app.get('/index.html', (req, res) => {
-    if (req.session.loggedin) {
-        res.sendFile(path.join(__dirname, 'index.html'));
-    } else {
-        res.redirect('/login.html');
-    }
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 /**

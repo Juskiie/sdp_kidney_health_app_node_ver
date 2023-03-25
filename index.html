@@ -64,7 +64,7 @@
         </form>
     </div>
     <div class="results">
-        <h7>Your eGFR results are:</h7>
+        <h6>Your eGFR results are:</h6>
         <div class="result" id="theResult">-</div>
         <p id="resultMessage"></p>
         <p hidden>We suggest you contact your GP.</p>
@@ -79,108 +79,5 @@
     <div class="healthylifestyle-box">
         <img class="PatientHealthyLifestyle" src="/images/healthylifestyle.png"/>
     </div>
-    <script id="get-and-update-chart">
-	    const dashBoardButton = document.getElementById('update-chart-button');
-		dashBoardButton.addEventListener('click', function() {
-
-            function splitJSONData(data)
-            {
-	            const arr = data.map(obj => Object.entries(obj));
-	            const mapArr = arr.map(([date, value]) => [date[1], value[1]]);
-	            const keys = mapArr.map(([date]) => date);
-	            const values = mapArr.map(([, value]) => value);
-				return [keys, values];
-            }
-			/*
-			 * The values for the dates are always going to be in order, as entries added to database
-			 * are added on the date the entry was created.
-			 * Since time cannot go backwards... they will already be in order.
-			 */
-			function drawNewChart(dates, values)
-			{
-				if(window.chart){
-					window.chart.destroy(); // First destroy any existing chart
-                }
-				const ctx = document.getElementById('line-chart').getContext('2d'); // use correct id "line-chart"
-				const data = {
-					labels: dates, //
-					datasets: [
-						{
-							label: 'eGFR Results history',
-							data: values,
-							fill: false,
-							borderColor: 'rgb(75, 192, 192)',
-							tension: 0.1
-						}
-					]
-				};
-				const options = {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: true
-							}
-						}]
-					}
-				}; // your options object
-				window.chart = new Chart(ctx, {
-					type: 'line',
-					data: data,
-					options: options
-				});
-
-            }
-			/*
-			 * Create the payload for updating the database,
-			 * send the completed table back with new values
-			 */
-			let gender = document.getElementById("sex").value;
-			let age = document.getElementById("age").value;
-			let ethnicity = document.getElementById("ethnicity").value;
-			console.log(gender, age, ethnicity);
-
-			const date = new Date(); // Create new date object at current date
-            const dateResult = date.toISOString().slice(0, 10);                         // Convert to just "YYYY-MM-DD"
-            const egfrResultValue = document.getElementById("theResult").innerText;    // Not very secure, fix this later
-
-            let patientID = document.getElementById("welcome-msg").innerText;           // Gets patient id from welcome msg. Lazy. Fix later.
-			let results={};
-			results[dateResult] = egfrResultValue;
-
-			let data = {
-				ID:patientID,
-				data:results
-			}; // This should contain, the user's ID (NHS number), and their latest result
-
-            let str = JSON.stringify(data, null, 2);
-            console.log(str);
-
-			fetch('/update', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
-			})
-				.then(res => {
-					if (!res.ok) {
-						throw new Error(res.statusText);
-					}
-					return res.json();
-				})
-				.then(data => {
-					// handle the response data here
-					let [Akeys,Avals]=splitJSONData(data);
-					console.log(Akeys); // Returns all dates in order
-					console.log(Avals); // Returns all values in order
-					drawNewChart(Akeys,Avals);
-				})
-				.catch(error => {
-					// handle errors here
-					console.error(error);
-				});
-        });
-    </script>
-
 </body>
 </html>
