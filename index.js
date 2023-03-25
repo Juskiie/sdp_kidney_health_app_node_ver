@@ -121,59 +121,35 @@ app.use(
  * Creates the login route, and verifies reCaptcha was completed.
  */
 app.post('/login', verifyRecaptcha, (req, res) => {
-    const {username, password} = req.body;
-    const clinicianSql = 'SELECT * FROM clinicians WHERE username = ?';
-    const patientSql = 'SELECT * FROM patients WHERE name = ?';
-    const user = 'SELECT * FROM users WHERE username = ?';
+    const { username, password } = req.body;
 
-    pool.query(clinicianSql, [username], (err, results) => {
+    const usersSql = 'SELECT * FROM users WHERE username = ?';
+
+    pool.query(usersSql, [username], (err, userResults) => {
         if (err) throw err;
 
-        // Check if user is a clinician
-        if (results.length > 0) {
-            bcrypt.compare(password, results[0].password, (err, result) => {
+        if (userResults.length > 0) {
+            bcrypt.compare(password, userResults[0].password, (err, result) => {
                 if (result) {
                     req.session.loggedin = true;
                     req.session.username = username;
-                    res.redirect('/clinician.html');
+
+                    const clinicianSql = 'SELECT * FROM clinician WHERE username = ?';
+                    pool.query(clinicianSql, [username], (err, clinicianResults) => {
+                        if (err) throw err;
+
+                        if (clinicianResults.length > 0) {
+                            res.redirect('/clinician.html');
+                        } else {
+                            res.redirect('/patient.html');
+                        }
+                    });
                 } else {
                     res.send('Incorrect username and/or password!');
                 }
             });
         } else {
-            // Check if user is a patient
-            pool.query(patientSql, [username], (err, results) => {
-                if (err) throw err;
-
-                if (results.length > 0) {
-                    bcrypt.compare(password, results[0].password, (err, result) => {
-                        if (result) {
-                            req.session.loggedin = true;
-                            req.session.username = username;
-                            res.redirect('/patient.html');
-                        } else {
-                            res.send('Incorrect username and/or password!');
-                        }
-                    });
-                } else {
-                    // If neither patient nor clinician, send to guest page.
-                    pool.query(user, [username], (err, results) => {
-                        if (err) throw err;
-
-                        if (results.length > 0) {
-                            bcrypt.compare(password, results[0].password, (err, result) => {
-                                if (result) {
-                                    req.session.loggedin = true;
-                                    req.session.username = username;
-                                    res.redirect('/index.html');
-                                } else {
-                                    res.send('Incorrect username and/or password!');
-                                }
-                            });
-                        }
-                    })
-                }
-            });
+            res.send('Incorrect username and/or password!');
         }
     });
 });
