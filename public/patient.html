@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Kidney health app home page</title>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
     <script type="module" src="/scripts/welcomeMessage.js"></script>
 	<ul>
         <li><a id="dashboard">Dashboard</a></li>
-        <li><a id="general-info" onclick="location.href='/patient_general_info.html'">General information</a></li>
+        <li><a id="general-info" href='/patient_general_info.html'>General information</a></li>
         <li style="float:right"><a href="/logout">Logout</a></li>
     </ul>
     <div class="calculate">
@@ -152,7 +152,7 @@
 				})
 				.then(data => {
 					// handle the response data here
-					let [Akeys,Avals]=splitJSONData(data);
+					let [Akeys, Avals]=splitJSONData(data);
 					console.log(Akeys); // Returns all dates in order
 					console.log(Avals); // Returns all values in order
 					drawNewChart(Akeys,Avals);

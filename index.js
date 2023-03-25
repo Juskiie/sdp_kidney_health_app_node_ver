@@ -198,13 +198,46 @@ app.get('/login.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
+/**
+ * Creates the static route for clinician page
+ */
 app.get('/clinician.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'clinician.html'));
+    if (req.session.loggedin) {
+        res.sendFile(path.join(__dirname, 'public', 'clinician.html'));
+    } else {
+        res.redirect('/login.html');
+    }
 });
 
+/**
+ * Creates the static route for patient page
+ */
 app.get('/patient.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'patient.html'));
+    if (req.session.loggedin) {
+        res.sendFile(path.join(__dirname, 'public', 'patient.html'));
+    } else {
+        res.redirect('/login.html');
+    }
 });
+
+/**
+ * Creates the static route for patient general information page
+ */
+app.get('/patient_general_info.html', (req, res) => {
+    if (req.session.loggedin) {
+        res.sendFile(path.join(__dirname, 'patient_general_info.html'));
+    } else {
+        res.redirect('/login.html');
+    }
+})
+
+app.get('/clinician_general_info.html', (req, res) => {
+    if (req.session.loggedin) {
+        res.sendFile(path.join(__dirname, 'clinician_general_info.html'));
+    } else {
+        res.redirect('/login.html');
+    }
+})
 
 
 // SQL QUERIES
