@@ -382,7 +382,7 @@
 }
 
 .past-result {
-    background-color: #f2f2f2;
+    background-color: rgba(255, 255, 255, 0);
     padding: 20px;
     width: calc(48% - 30px);
     margin: 40px;
