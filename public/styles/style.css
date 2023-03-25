@@ -45,11 +45,18 @@
         float: left;
       }
       li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
+          background-color: #13005A;
+          border: none;
+          color: #FFFFFF;
+          padding: 14px 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+          border-radius: 5px;
+          transition-duration: 0.4s;
       }
       li a:hover {
         background-color: #301934;
