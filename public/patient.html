@@ -21,6 +21,7 @@
 	<ul>
         <li><a id="dashboard">Dashboard</a></li>
         <li><a id="general-info" href='/patient_general_info.html'>General information</a></li>
+        <li><button id="update-chart-button">Past Results</button></li>
         <li style="float:right"><a href="/logout">Logout</a></li>
     </ul>
     <h3 id="welcome-msg"></h3>
@@ -65,6 +66,11 @@
         <p hidden>We suggest you contact your GP.</p>
         <p hidden>Keep a note of your results for your appointment.</p>
         <p hidden>For more information visit www.com</p>
+    </div>
+    <div class="past-result" id="resultData"><!-- add content for new box here -->
+        <div class="chartStyle" style="width:50%">
+            <canvas id="line-chart"></canvas>
+        </div>
     </div>
 	
 	<div class="healthylifestyle-box">
