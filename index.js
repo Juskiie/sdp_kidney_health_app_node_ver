@@ -249,10 +249,10 @@ CREATE TABLE IF NOT EXISTS \`users\` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 `
 const updateResultsData = `
-UPDATE patients 
-SET test_results = ? 
+UPDATE patients
+SET test_results = JSON_MERGE_PATCH(test_results, ?)
 WHERE name = ?
-`
+`;
 const getResultsData = `
     SELECT test_results
     FROM patients 
@@ -266,18 +266,18 @@ const getResultsData = `
  */
 app.post('/update', (req, res) => {
     // Retrieve the data from the backend
-    let id=req.body.ID;
+    let id = req.body.ID;
     let testResults = req.body.data;
     const testResultsJson = JSON.stringify(testResults);
 
-    pool.query(updateResultsData, [testResultsJson,id], (error, updateResults, fields) => {
-        if (error){
+    pool.query(updateResultsData, [testResultsJson, id], (error, updateResults, fields) => {
+        if (error) {
             console.error(error);
             res.status(500).json({ error: 'Internal Server Error: Unable to update table' });
             return;
         }
 
-        pool.query(getResultsData, [id], (error, getResults, fields) =>{
+        pool.query(getResultsData, [id], (error, getResults, fields) => {
             if (error) {
                 console.error(error);
                 res.status(500).json({ error: 'Internal Server Error: Unable to retrieve table data' });
