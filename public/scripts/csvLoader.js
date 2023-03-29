@@ -50,19 +50,49 @@ export function csvLoader(csvData) {
 		let currentResult = calcEFGR(patient.creatinine, patient.age, patient.gender, patient.ethnicity)
 		console.log(currentResult);
 		appendResult(patient.patientID, currentResult);
+		fetch()
 	}
 }
 
 /**
  * Appends the results data to the main page in a list view for the clinician.
- * @param id - The patient ID
- * @param result - The eGFR value for the patient
+ * @param id - The patients ID
+ * @param result - The patients eGFR value
+ * @returns {Promise<void>}
  */
-function appendResult(id, result) {
+async function appendResult(id, result) {
 	const resultsDiv = document.getElementById('resultsFromCSV');
 	const listItem = document.createElement('div');
 	listItem.innerText = (id + ": " + result);
 	resultsDiv.appendChild(listItem);
+
+	const dateResult = new Date().toISOString().slice(0, 10);
+	const results = {};
+	results[dateResult] = result;
+
+	const data = {
+		ID: patient.patientID,
+		data: results,
+	};
+
+	try {
+		const response = await fetch('/update', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		});
+
+		if (!response.ok) {
+			throw new Error(response.statusText);
+		}
+
+		const responseData = await response.json();
+		console.log(responseData);
+	} catch (error) {
+		console.error(error);
+	}
 }
 
 document.getElementById('csvFile').addEventListener('change', async (event) => {
