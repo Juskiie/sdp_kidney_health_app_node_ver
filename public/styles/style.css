@@ -59,7 +59,8 @@
           transition-duration: 0.4s;
       }
       li a:hover {
-        background-color: #301934;
+          background-color: #FFFFFF;
+          color: #13005A;
       }
 		
 		/* add new style for the box */
