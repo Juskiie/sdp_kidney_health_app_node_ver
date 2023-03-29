@@ -1,6 +1,12 @@
 console.log("csvLoader.js loaded");
 import calcEFGR from './calcEFGR.js';
 
+
+/**
+ * Allows clinicians to upload a CSV file, containing patient eGFR data.
+ * Then batch performs the eGFR calculation on all the patient data, and output to user.
+ * @param csvData - The CSV file
+ */
 export function csvLoader(csvData) {
 	const lines = csvData.split('\n');
 	const patients = [];
@@ -47,10 +53,15 @@ export function csvLoader(csvData) {
 	}
 }
 
+/**
+ * Appends the results data to the main page in a list view for the clinician.
+ * @param id - The patient ID
+ * @param result - The eGFR value for the patient
+ */
 function appendResult(id, result) {
 	const resultsDiv = document.getElementById('resultsFromCSV');
 	const listItem = document.createElement('div');
-	listItem.innerText = (id + ":" + result);
+	listItem.innerText = (id + ": " + result);
 	resultsDiv.appendChild(listItem);
 }
 
