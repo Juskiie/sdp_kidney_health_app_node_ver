@@ -12,41 +12,7 @@ const path = require('path')
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const mysql = require('mysql');
-const axios = require('axios');
-
-/**
- * Checks that the reCAPTCHA was completed by the user
- * @param req - HTTP request argument to the middleware function
- * @param res - HTTP response argument to the middleware function
- * @param next - Callback argument for middleware function
- * @returns {Promise<*>} - async function promises to complete
- */
-const verifyRecaptcha = async (req, res, next) => {
-    const recaptchaResponse = req.body['g-recaptcha-response'];
-
-    if (!recaptchaResponse) {
-        return res.status(400).send('reCAPTCHA not completed.');
-    }
-
-    try {
-        const result = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
-            params: {
-                secret: '6Ld9Ox0lAAAAAI0kgVw4Ty4CSOExbmlzzeLmCuIj',
-                response: recaptchaResponse,
-                remoteip: req.ip
-            }
-        });
-
-        if (result.data.success) {
-            next();
-        } else {
-            res.status(400).send('reCAPTCHA validation failed.');
-        }
-    } catch (error) {
-        res.status(500).send('Error validating reCAPTCHA.');
-        console.error(error);
-    }
-};
+const verifyRecaptcha = require('./private-scripts/recaptcha');
 
 // Create mysql connection
 const pool = mysql.createPool({
@@ -58,12 +24,27 @@ const pool = mysql.createPool({
     port: 3306
 });
 
+// Create a session and cookie for users
+app.use(
+    session({
+        secret: 'secretKey',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { maxAge: 60 * 60 * 1000 }, // 1 hour
+    })
+);
+
+// Serve static files from the public directory
+app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
+app.use('/scripts', express.static(path.join(__dirname, 'public', 'scripts')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
 // Setup express middleware
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 /**
- * @deprecated - Used to register new users
+ * @deprecated - Used to register new users, currently unused
  */
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
@@ -100,22 +81,6 @@ app.post('/register', async (req, res) => {
         console.error(error);
     }
 });
-
-// Serve static files from the public directory
-app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
-app.use('/scripts', express.static(path.join(__dirname, 'public', 'scripts')));
-app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
-
-
-// Create a session and cookie for users
-app.use(
-    session({
-        secret: 'secretKey',
-        resave: false,
-        saveUninitialized: true,
-        cookie: { maxAge: 60 * 60 * 1000 }, // 1 hour
-    })
-);
 
 /**
  * Creates the login route, and verifies reCaptcha was completed.
@@ -231,10 +196,8 @@ app.get('/clinician_general_info.html', (req, res) => {
     }
 })
 
-
 // SQL QUERIES
 app.use(express.json());
-
 
 /**
  * Pre-made sql queries
@@ -289,7 +252,6 @@ app.post('/update', (req, res) => {
         });
     });
 });
-
 
 app.get('/logout', (req, res) => {
     req.session.destroy();
