@@ -22,6 +22,7 @@
         <li><a id="dashboard">Dashboard</a></li>
         <li><a href="/clinician_general_info.html">General information</a></li>
         <li><button id="update-chart-button">Past Results</button></li>
+        <li><a href="mailto:">Open email client</a></li>
         <li style="float:right"><a href="/logout">Logout</a></li>
     </ul>
     <h3 id="welcome-msg"></h3>
@@ -67,14 +68,15 @@
         <p hidden>Keep a note of your results for your appointment.</p>
         <p hidden>For more information visit www.com</p>
     </div>
-    <div class="share-results">
-        <p>Share the eGFR results with the patient via email</p>
-        <a style="background-color: #00337C; color: white;" href="mailto:">Open email client</a>
-    </div>
     <div class="past-result" id="resultData"><!-- add content for new box here -->
         <div class="chartStyle" style="width:50%">
             <canvas id="line-chart"></canvas>
         </div>
     </div>
+	
+	<div class="share-results">
+    <p>Share the eGFR results with the patient via email</p>
+    <button style="background-color: #00337C; color: white;">Email</button>
+</div>
 </body>
 </html>
