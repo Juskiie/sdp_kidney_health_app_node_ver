@@ -7,7 +7,7 @@ import calcEFGR from './calcEFGR.js';
  * Then batch performs the eGFR calculation on all the patient data, and output to user.
  * @param csvData - The CSV file
  */
-export function csvLoader(csvData) {
+export async function csvLoader(csvData) {
 	const lines = csvData.split('\n');
 	const patients = [];
 	const patientIds = new Set();
@@ -46,12 +46,13 @@ export function csvLoader(csvData) {
 		});
 	}
 
-	for (const patient of patients) {
-		let currentResult = calcEFGR(patient.creatinine, patient.age, patient.gender, patient.ethnicity)
-		console.log(currentResult);
-		appendResult(patient.patientID, currentResult);
-		fetch()
-	}
+	await Promise.all(
+		patients.map(async (patient) => {
+			const currentResult = calcEFGR(patient.creatinine, patient.age, patient.gender, patient.ethnicity);
+			console.log(currentResult);
+			return appendResult(patient, currentResult);
+		})
+	);
 }
 
 /**
