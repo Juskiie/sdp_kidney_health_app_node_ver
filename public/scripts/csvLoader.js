@@ -62,10 +62,36 @@ export async function csvLoader(csvData) {
  * @returns {Promise<void>}
  */
 async function appendResult(patient, result) {
-	const resultsDiv = document.getElementById('resultsFromCSV');
-	const listItem = document.createElement('div');
-	listItem.innerText = (patient.patientID + ": " + result);
-	resultsDiv.appendChild(listItem);
+	const resultsDiv = document.getElementById("resultsFromCSV");
+
+	// Create the table if it doesn't exist
+	let table = resultsDiv.querySelector("table");
+	if (!table) {
+		table = document.createElement("table");
+		const thead = document.createElement("thead");
+		const headerRow = document.createElement("tr");
+
+		const thPatientID = document.createElement("th");
+		thPatientID.textContent = "Patient ID";
+		headerRow.appendChild(thPatientID);
+
+		const thResult = document.createElement("th");
+		thResult.textContent = "Result";
+		headerRow.appendChild(thResult);
+
+		thead.appendChild(headerRow);
+		table.appendChild(thead);
+
+		const tbody = document.createElement("tbody");
+		table.appendChild(tbody);
+
+		resultsDiv.appendChild(table);
+	}
+
+	// Append the result as a new row in the table
+	const tbody = table.querySelector("tbody");
+	const newRow = createTableRow(patient.patientID, result);
+	tbody.appendChild(newRow);
 
 	const dateResult = new Date().toISOString().slice(0, 10);
 	const results = {};
@@ -106,3 +132,17 @@ document.getElementById('csvFile').addEventListener('change', async (event) => {
 		await csvLoader(fileContent);
 	}
 });
+
+// New function to create a table row
+function createTableRow(patientID, result) {
+	const tr = document.createElement("tr");
+	const tdPatientID = document.createElement("td");
+	tdPatientID.textContent = patientID;
+	tr.appendChild(tdPatientID);
+
+	const tdResult = document.createElement("td");
+	tdResult.textContent = result;
+	tr.appendChild(tdResult);
+
+	return tr;
+}
