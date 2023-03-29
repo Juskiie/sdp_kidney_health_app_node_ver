@@ -43,14 +43,14 @@ export function csvLoader(csvData) {
 	for (const patient of patients) {
 		let currentResult = calcEFGR(patient.creatinine, patient.age, patient.gender, patient.ethnicity)
 		console.log(currentResult);
-		appendResult(currentResult);
+		appendResult(patient.patientID, currentResult);
 	}
 }
 
-function appendResult(result) {
+function appendResult(id, result) {
 	const resultsDiv = document.getElementById('resultsFromCSV');
 	const listItem = document.createElement('div');
-	listItem.innerText = result;
+	listItem.innerText = (id + ":" + result);
 	resultsDiv.appendChild(listItem);
 }
 
