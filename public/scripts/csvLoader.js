@@ -41,8 +41,17 @@ export function csvLoader(csvData) {
 	}
 
 	for (const patient of patients) {
-		console.log(calcEFGR(patient.creatinine, patient.age, patient.gender, patient.ethnicity));
+		let currentResult = calcEFGR(patient.creatinine, patient.age, patient.gender, patient.ethnicity)
+		console.log(currentResult);
+		appendResult(currentResult);
 	}
+}
+
+function appendResult(result) {
+	const resultsDiv = document.getElementById('results');
+	const listItem = document.createElement('div');
+	listItem.innerText = result;
+	resultsDiv.appendChild(listItem);
 }
 
 document.getElementById('csvFile').addEventListener('change', async (event) => {

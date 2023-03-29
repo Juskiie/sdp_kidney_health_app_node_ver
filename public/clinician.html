@@ -15,6 +15,14 @@
             -ms-user-select: none;
         }
     </style>
+    <style>
+        #resultsFromCSV {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to KodeGreen's Kidney Health Tracker</h1>
@@ -74,8 +82,9 @@
     <div class="share-results">
         <h1>Import patient CSV file for processing</h1>
         <input type="file" id="csvFile" accept=".csv">
-        <script type="module" src="csvLoader.js"></script>
+        <script type="module" src="/scripts/csvLoader.js"></script>
     </div>
+    <div id="resultsFromCSV"></div>
     <div class="past-result" id="resultData"><!-- add content for new box here -->
         <div class="chartStyle" style="width:50%">
             <canvas id="line-chart"></canvas>
