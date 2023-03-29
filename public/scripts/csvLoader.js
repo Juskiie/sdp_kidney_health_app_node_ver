@@ -48,7 +48,7 @@ export function csvLoader(csvData) {
 }
 
 function appendResult(result) {
-	const resultsDiv = document.getElementById('results');
+	const resultsDiv = document.getElementById('resultsFromCSV');
 	const listItem = document.createElement('div');
 	listItem.innerText = result;
 	resultsDiv.appendChild(listItem);
