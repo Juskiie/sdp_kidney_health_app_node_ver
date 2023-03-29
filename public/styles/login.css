@@ -1,0 +1,158 @@
+*  {
+    font-family: 'Muli', sans-serif;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.description {
+    position: absolute;
+    width: 55%;
+    left: 0;
+    top: 0px;
+    bottom: 0;
+    background: linear-gradient(#1C82AD, #00337C);
+    padding: 20px;
+    padding-top: 90px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    color: #fff;
+    font-size: 79px;
+    text-align: center;
+    text-shadow: 2px 2px #1C82AD;
+}
+
+.description img {
+    max-width: 700px;
+    height: 120px;
+    margin-top: auto;
+    margin-bottom: 100px;
+}
+
+.login {
+    position: absolute;
+    width: 45%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: auto;
+    background-color: #eeeeee;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    margin-top: -200px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-group label {
+    display: inline-block;
+    text-align: left;
+    margin-right: 10px;
+    color: #00337C;
+}
+
+.form-group input {
+    margin-top: 5px;
+    width: 330px;
+    max-width: 300px;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid #00337C;
+    color: #00337C;
+}
+
+input[type="submit"] {
+    background-color: #00337C;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 150px;
+    align-self: center;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-box {
+    font-size: 80px;
+    color: #fff;
+    text-align: center;
+    margin-top: 10px
+}
+
+.egfr-box {
+    font-size: 30px;
+    margin-top: 0px;
+}
+
+.additional-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 90px;
+    text-align: center;
+}
+
+.additional-info h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.additional-info ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.additional-info ul li {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Approved by */
+#approved-by {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+}
+
+#approved-by-text {
+    font-size: 15px;
+    color: #00337C;
+    margin-right: 5px;
+    margin-top: 5px; /* added */
+    text-align:center;
+}
+
+#approved-by-image {
+    width: 100px;
+}

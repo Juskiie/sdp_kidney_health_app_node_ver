@@ -1,3 +1,6 @@
+       *  {
+           font-family: 'Muli', sans-serif;
+       }
 
 		head {
 			color: #FFFFFF;
@@ -32,20 +35,18 @@
             background-color: #FFFFFF;
             color: #13005A;
         }
-		
-      /* Set the color and style of the menu bar */
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #13005A;
-      }
-      li {
-        float: left;
-      }
-      li a {
-          background-color: #13005A;
+
+        ul {
+           list-style-type: none;
+           margin: 0;
+           padding: 0;
+           overflow: hidden;
+           background-color: #13005A;
+        }
+        li {
+          float: left;
+        }
+        li a {background-color: #13005A;
           border: none;
           color: #FFFFFF;
           padding: 14px 20px;
@@ -57,13 +58,12 @@
           cursor: pointer;
           border-radius: 5px;
           transition-duration: 0.4s;
-      }
-      li a:hover {
+        }
+        li a:hover {
           background-color: #FFFFFF;
           color: #13005A;
-      }
-		
-		/* add new style for the box */
+        }
+
         .ClinicianCalculate {
             background-color: #097969;
             padding: 20px;
@@ -116,7 +116,7 @@
 		}
 		
 		/* add style for submit button */
-		form button[type="submit"] {
+		form input[type="submit"] {
 			background-color: #13005A; /* change background color */
 			color: white;
 			padding: 10px 20px;
@@ -148,30 +148,30 @@
 		}
 		
 	   .share-results {
-      background-color: #1C82AD;
-      padding: 20px;
-      width: calc(48% - 30px);
-      margin: 40px;
-      border-radius: 10px;
-      float: right;
-      text-align: center;
-      height: 20%;
-      margin-top: 20px;
-   }
+            background-color: #1C82AD;
+            padding: 20px;
+            width: calc(48% - 30px);
+            margin: 40px;
+            border-radius: 10px;
+            float: right;
+            text-align: center;
+            height: 20%;
+            margin-top: 20px;
+        }
 
-   .share-results p {
-       color: #ffffff;
-  font-size: 30px;
-      margin-bottom: 10px;}
+       .share-results p {
+           color: #ffffff;
+           font-size: 30px;
+           margin-bottom: 10px;}
       
       .share-results button {
-   background-color: #00337C;
-   color: #FFFFFF;
-   padding: 14px 20px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   font-size: 16px;
+           background-color: #00337C;
+           color: #FFFFFF;
+           padding: 14px 20px;
+           text-align: center;
+           text-decoration: none;
+           display: inline-block;
+           font-size: 16px;
    margin: 4px 2px;
    cursor: pointer;
    border-radius: 5px;

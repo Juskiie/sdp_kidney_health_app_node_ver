@@ -31,6 +31,9 @@ function submitForm(event) {
 		// let resultMessageElement = document.querySelector('#result-message');
 		const rightBoxElement = document.querySelector('.results');
 
+		// generalising the unit before rendering UI
+       const independentresult = isMmol ? efgrResult : efgrResult * 18;
+
 		// Determines background colour based on eGFR value
 		// document.getElementById("resultMessage").style.visibility = "visible";
 		switch(true) {
