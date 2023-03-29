@@ -10,15 +10,19 @@ console.log("calcEFGR.js loaded");
  * @returns {string} - The eGFR value for the patient, to 3 digits.
  */
 export default function calcEFGR(creat, age, isFemale, isBlack, isMmol) {
-	let a = Math.pow((creat / 88.4), -1.154);
-	if(isMmol){
-		a = a / 18;
+	if (isMmol) {
+		creat /= 18;
 	}
+	const a = Math.pow((creat / 88.4), -1.154);
 	const b = Math.pow(age, -0.203);
-	const c = isFemale ? 0.742 : 1;
-	const d = isBlack ? 1.210 : 1;
-	return (a * b * c * d).toFixed(3);
+	const genderMultiplier = isFemale ? 0.742 : 1;
+	const raceMultiplier = isBlack ? 1.210 : 1;
+	const result = a * b * genderMultiplier * raceMultiplier;
+
+	return result.toFixed(3);
 }
+
+
 
 
 // UGLY HARD TO READ CODE:
