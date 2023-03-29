@@ -134,6 +134,12 @@ document.getElementById('csvFile').addEventListener('change', async (event) => {
 });
 
 // New function to create a table row
+/**
+ * Dynamically creates a table with the eGFR results for patients, when a csv is used
+ * @param patientID - The ID of the patient
+ * @param result - The patients eGFR result
+ * @returns {HTMLTableRowElement}
+ */
 function createTableRow(patientID, result) {
 	const tr = document.createElement("tr");
 	const tdPatientID = document.createElement("td");
