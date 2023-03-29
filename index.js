@@ -170,6 +170,14 @@ app.get('/clinician.html', (req, res) => {
     }
 });
 
+app.get('/CSV_clinician.html', (req, res) => {
+    if (req.session.loggedin) {
+        res.sendFile(path.join(__dirname, 'public', 'CSV_clinician.html'));
+    } else {
+        res.redirect('/login.html');
+    }
+});
+
 /**
  * Creates the static route for patient page
  */
