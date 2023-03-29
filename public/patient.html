@@ -158,7 +158,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(data)
+				body: JSON.stringify({ ...data, returnResults: true })
 			})
 				.then(res => {
 					if (!res.ok) {

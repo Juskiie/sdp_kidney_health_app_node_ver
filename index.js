@@ -232,6 +232,7 @@ app.post('/update', (req, res) => {
     let id = req.body.ID;
     let testResults = req.body.data;
     const testResultsJson = JSON.stringify(testResults);
+    const returnResults = req.body.returnResults || false;
 
     pool.query(updateResultsData, [testResultsJson, id], (error, updateResults, fields) => {
         if (error) {
@@ -240,20 +241,24 @@ app.post('/update', (req, res) => {
             return;
         }
 
-        pool.query(getResultsData, [id], (error, getResults, fields) => {
-            if (error) {
-                console.error(error);
-                res.status(500).json({ error: 'Internal Server Error: Unable to retrieve table data' });
-                return;
-            }
-            if (!getResults[0] || getResults[0].test_results === undefined || getResults[0].test_results === null) {
-                res.status(404).json({ error: 'No test results found for the given ID' });
-                return;
-            }
-            const testResultsFromDb = JSON.parse(getResults[0].test_results);
-            const result = Object.entries(testResultsFromDb).map(([date, value]) => ({ date, value }));
-            res.json(result);
-        });
+        if (returnResults) {
+            pool.query(getResultsData, [id], (error, getResults, fields) => {
+                if (error) {
+                    console.error(error);
+                    res.status(500).json({ error: 'Internal Server Error: Unable to retrieve table data' });
+                    return;
+                }
+                if (!getResults[0] || getResults[0].test_results === undefined || getResults[0].test_results === null) {
+                    res.status(404).json({ error: 'No test results found for the given ID' });
+                    return;
+                }
+                const testResultsFromDb = JSON.parse(getResults[0].test_results);
+                const result = Object.entries(testResultsFromDb).map(([date, value]) => ({ date, value }));
+                res.json(result);
+            });
+        } else {
+            res.status(200).json({ message: 'Update successful' });
+        }
     });
 });
 
