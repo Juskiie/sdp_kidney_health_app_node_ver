@@ -57,14 +57,14 @@ export async function csvLoader(csvData) {
 
 /**
  * Appends the results data to the main page in a list view for the clinician.
- * @param id - The patients ID
+ * @param patient - The patients ID
  * @param result - The patients eGFR value
  * @returns {Promise<void>}
  */
-async function appendResult(id, result) {
+async function appendResult(patient, result) {
 	const resultsDiv = document.getElementById('resultsFromCSV');
 	const listItem = document.createElement('div');
-	listItem.innerText = (id + ": " + result);
+	listItem.innerText = (patient.patientID + ": " + result);
 	resultsDiv.appendChild(listItem);
 
 	const dateResult = new Date().toISOString().slice(0, 10);
@@ -100,6 +100,6 @@ document.getElementById('csvFile').addEventListener('change', async (event) => {
 	const file = event.target.files[0];
 	if (file) {
 		const fileContent = await file.text();
-		csvLoader(fileContent);
+		await csvLoader(fileContent);
 	}
 });
