@@ -16,7 +16,8 @@ function submitForm(event) {
 		let creatinine = document.querySelector('input[name="creat"]').value;
 		let isFemale = sex==="female";
 		let isBlack = ethnicity==="black";
-		const efgrResult = calcEFGR(creatinine, age, isFemale, isBlack);    // Use eGFR calculator script to get value for patient
+		let isMmol = document.querySelector("mmol").checked;
+		const efgrResult = calcEFGR(creatinine, age, isFemale, isBlack, isMmol);    // Use eGFR calculator script to get value for patient
 		document.querySelector('.result').textContent = efgrResult;
 
 		// Simple logging for debugging purposes; can be removed.
