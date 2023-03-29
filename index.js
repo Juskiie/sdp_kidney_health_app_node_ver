@@ -211,9 +211,17 @@ CREATE TABLE IF NOT EXISTS \`users\` (
   PRIMARY KEY (\`id\`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 `
+// const updateResultsData = `
+// UPDATE patients
+// SET test_results = JSON_MERGE_PATCH(test_results, ?)
+// WHERE name = ?
+// `;
 const updateResultsData = `
 UPDATE patients
-SET test_results = JSON_MERGE_PATCH(test_results, ?)
+SET test_results = CASE
+    WHEN test_results IS NULL THEN ?
+    ELSE JSON_MERGE_PATCH(test_results, ?)
+END
 WHERE name = ?
 `;
 const getResultsData = `
@@ -234,7 +242,7 @@ app.post('/update', (req, res) => {
     const testResultsJson = JSON.stringify(testResults);
     const returnResults = req.body.returnResults || false;
 
-    pool.query(updateResultsData, [testResultsJson, id], (error, updateResults, fields) => {
+    pool.query(updateResultsData, [testResultsJson, testResultsJson, id], (error, updateResults, fields) => { //pool.query(updateResultsData, [testResultsJson, id], (error, updateResults, fields) => {
         if (error) {
             console.error(error);
             res.status(500).json({ error: 'Internal Server Error: Unable to update table' });
