@@ -76,6 +76,9 @@ async function appendResult(patient, result) {
 		data: results,
 	};
 
+	let str = JSON.stringify(data, null, 2);
+	console.log(str);
+
 	try {
 		const response = await fetch('/update', {
 			method: 'POST',
