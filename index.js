@@ -246,6 +246,10 @@ app.post('/update', (req, res) => {
                 res.status(500).json({ error: 'Internal Server Error: Unable to retrieve table data' });
                 return;
             }
+            if (!getResults[0] || getResults[0].test_results === undefined || getResults[0].test_results === null) {
+                res.status(404).json({ error: 'No test results found for the given ID' });
+                return;
+            }
             const testResultsFromDb = JSON.parse(getResults[0].test_results);
             const result = Object.entries(testResultsFromDb).map(([date, value]) => ({ date, value }));
             res.json(result);
