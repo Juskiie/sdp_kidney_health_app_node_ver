@@ -7,7 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 80; // choose any port number you like
-const hostname = "18.134.161.238";
+// const hostname = "18.134.161.238";
 const path = require('path')
 const session = require('express-session');
 const bcrypt = require('bcrypt');
@@ -210,15 +210,7 @@ app.use(express.json());
 /**
  * Pre-made sql queries
  */
-const createUsersTable = `
-CREATE TABLE IF NOT EXISTS \`users\` (
-  \`id\` int NOT NULL AUTO_INCREMENT,
-  \`name\` varchar(255) NOT NULL,
-  \`email\` varchar(255) NOT NULL,
-  \`password\` varchar(255) NOT NULL,
-  PRIMARY KEY (\`id\`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-`
+
 // const updateResultsData = `
 // UPDATE patients
 // SET test_results = JSON_MERGE_PATCH(test_results, ?)

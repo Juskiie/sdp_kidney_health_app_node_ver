@@ -7,6 +7,7 @@ console.log("calcEFGR.js loaded");
  * @param age - the patients age
  * @param isFemale - is the patient female?
  * @param isBlack - is the patient black?
+ * @param isMmol - Should mmol/L conversion be performed
  * @returns {string} - The eGFR value for the patient, to 3 digits.
  */
 export default function calcEFGR(creat, age, isFemale, isBlack, isMmol) {
