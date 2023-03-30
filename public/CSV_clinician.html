@@ -14,16 +14,12 @@
   <li style="float:right"><a href="/logout">Logout</a></li>
 </ul>
 
-<div class="Import">
-  <span style="text-align: left;">Calculate many patients CSV results from a CSV file</span>
-  <button id="import-button" style="float: right;">Import CSV File</button>
-</div>
-<div class="share-results">
+<div class="csv-import">
   <h1>Import patient CSV file for processing</h1>
   <input type="file" id="csvFile" accept=".csv">
   <script type="module" src="/scripts/csvLoader.js"></script>
 </div>
-<div class="share-results" id="resultsFromCSV"></div>
+<div class="csv-import" id="resultsFromCSV"></div>
 <div class="csv">
   <table>
   </table>
