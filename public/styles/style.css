@@ -16,7 +16,7 @@
 			margin-bottom:0px;
 		}
 		
-		button {
+		button, a {
             background-color: #13005A;
             border: none;
             color: #FFFFFF;
@@ -31,7 +31,7 @@
             transition-duration: 0.4s;
         }
 
-         button:hover {
+         button:hover, a:hover {
             background-color: #FFFFFF;
             color: #13005A;
         }
