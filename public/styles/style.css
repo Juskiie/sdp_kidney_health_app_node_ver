@@ -184,7 +184,7 @@
 }
 
 		/* add style for the image box */
-		.image {
+		.resource-image {
 			background-color: transparent;
 			padding: 20px;
 			width: calc(48% - 30px);
