@@ -7,7 +7,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 80; // choose any port number you like
-// const hostname = "18.134.161.238";
 const path = require('path')
 const session = require('express-session');
 const bcrypt = require('bcrypt');
@@ -19,7 +18,7 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     host: 'maindb.cvqsrhluyyah.eu-west-2.rds.amazonaws.com',               // maindb.cvqsrhluyyah.eu-west-2.rds.amazonaws.com
     user: 'root',
-    password: 'SDPKodeGreen123',
+    password: process.env.dbPassword,
     database: 'maindb',
     port: 3306
 });
