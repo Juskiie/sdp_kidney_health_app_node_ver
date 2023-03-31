@@ -8,9 +8,6 @@ RUN npm install
 
 COPY . .
 
-# Environment variable
-ENV dbPassword SDPKodeGreen123
-
 EXPOSE 80/tcp
 EXPOSE 80/udp
 
